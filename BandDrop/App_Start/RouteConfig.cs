@@ -18,6 +18,24 @@ namespace BandDrop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+            name: "Home",
+            url: "",
+            defaults: new { controller = "Home", action = "Index" }
+            );     
+
+            routes.MapRoute(
+                name: "Login",
+                url: "login",
+                defaults: new { controller = "Auth", action = "Login" }
+            );
+
+            routes.MapRoute(
+                name: "ChatRoom",
+                url: "chat",
+                defaults: new { controller = "Chat", action = "Index" }
+            );
         }
     }
 }

@@ -24,6 +24,7 @@ namespace BandDrop.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public DbSet<Musician> Musicians { get; set; }
 
         public static ApplicationDbContext Create()
         {
