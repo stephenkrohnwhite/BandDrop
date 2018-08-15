@@ -46,6 +46,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Apis, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.35.1\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.35.1\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.35.1\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.35.1\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Gmail.v1, Version=1.35.1.1300, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Gmail.v1.1.35.1.1300\lib\net45\Google.Apis.Gmail.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.35.1\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -56,8 +74,8 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PusherServer, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PusherServer.4.1.0\lib\net45\PusherServer.dll</HintPath>
@@ -200,10 +218,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusiciansController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,8 +231,49 @@
     <Compile Include="Migrations\201808101750416_adding musician model.Designer.cs">
       <DependentUpon>201808101750416_adding musician model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808142330508_adding band model.cs" />
+    <Compile Include="Migrations\201808142330508_adding band model.Designer.cs">
+      <DependentUpon>201808142330508_adding band model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808142334151_adding FK bands to db.cs" />
+    <Compile Include="Migrations\201808142334151_adding FK bands to db.Designer.cs">
+      <DependentUpon>201808142334151_adding FK bands to db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808142350451_adding sting for user role in identitymodels.cs" />
+    <Compile Include="Migrations\201808142350451_adding sting for user role in identitymodels.Designer.cs">
+      <DependentUpon>201808142350451_adding sting for user role in identitymodels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808150015577_adding string bandname.cs" />
+    <Compile Include="Migrations\201808150015577_adding string bandname.Designer.cs">
+      <DependentUpon>201808150015577_adding string bandname.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808150026569_dropping fk datetime.cs" />
+    <Compile Include="Migrations\201808150026569_dropping fk datetime.Designer.cs">
+      <DependentUpon>201808150026569_dropping fk datetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808150030162_adding string userid for linking accoutns.cs" />
+    <Compile Include="Migrations\201808150030162_adding string userid for linking accoutns.Designer.cs">
+      <DependentUpon>201808150030162_adding string userid for linking accoutns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808150035299_allowing for null fk from musician to band.cs" />
+    <Compile Include="Migrations\201808150035299_allowing for null fk from musician to band.Designer.cs">
+      <DependentUpon>201808150035299_allowing for null fk from musician to band.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808151425375_adding key value to models.cs" />
+    <Compile Include="Migrations\201808151425375_adding key value to models.Designer.cs">
+      <DependentUpon>201808151425375_adding key value to models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808151428008_adding band vm for database creation.cs" />
+    <Compile Include="Migrations\201808151428008_adding band vm for database creation.Designer.cs">
+      <DependentUpon>201808151428008_adding band vm for database creation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808151513040_test.cs" />
+    <Compile Include="Migrations\201808151513040_test.Designer.cs">
+      <DependentUpon>201808151513040_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Band.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Musician.cs" />
@@ -221,10 +282,12 @@
     <Compile Include="SlackUtils\SlackFunction.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\APIUtility.cs" />
+    <Compile Include="ViewModels\BandViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Materia.css" />
     <Content Include="Content\newAge.css" />
     <Content Include="Content\spaceLab.css" />
     <Content Include="favicon.ico" />
@@ -287,6 +350,17 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Musicians\Create.cshtml" />
+    <Content Include="Views\Musicians\Delete.cshtml" />
+    <Content Include="Views\Musicians\Details.cshtml" />
+    <Content Include="Views\Musicians\Edit.cshtml" />
+    <Content Include="Views\Musicians\Index.cshtml" />
+    <Content Include="Views\Home\CreateOrJoin.cshtml" />
+    <Content Include="Views\Bands\Delete.cshtml" />
+    <Content Include="Views\Bands\Details.cshtml" />
+    <Content Include="Views\Bands\Edit.cshtml" />
+    <Content Include="Views\Bands\Index.cshtml" />
+    <Content Include="Views\Bands\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +383,36 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808101750416_adding musician model.resx">
       <DependentUpon>201808101750416_adding musician model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808142330508_adding band model.resx">
+      <DependentUpon>201808142330508_adding band model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808142334151_adding FK bands to db.resx">
+      <DependentUpon>201808142334151_adding FK bands to db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808142350451_adding sting for user role in identitymodels.resx">
+      <DependentUpon>201808142350451_adding sting for user role in identitymodels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808150015577_adding string bandname.resx">
+      <DependentUpon>201808150015577_adding string bandname.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808150026569_dropping fk datetime.resx">
+      <DependentUpon>201808150026569_dropping fk datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808150030162_adding string userid for linking accoutns.resx">
+      <DependentUpon>201808150030162_adding string userid for linking accoutns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808150035299_allowing for null fk from musician to band.resx">
+      <DependentUpon>201808150035299_allowing for null fk from musician to band.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808151425375_adding key value to models.resx">
+      <DependentUpon>201808151425375_adding key value to models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808151428008_adding band vm for database creation.resx">
+      <DependentUpon>201808151428008_adding band vm for database creation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808151513040_test.resx">
+      <DependentUpon>201808151513040_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

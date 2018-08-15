@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BandDrop.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +10,18 @@ namespace BandDrop.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            if (Session["user"] != null)
+            string userId = User.Identity.GetUserId();
+            var musician = db.Musicians.Where(m => m.UserId == userId).SingleOrDefault();
+            if (User.IsInRole("Musician") && musician.BandId != null)
             {
-                return Redirect("/chat");
+                return RedirectToAction("Index","Chat");
+            }
+            if(User.IsInRole("Musician") && musician.BandId == null)
+            {
+                return View("CreateOrJoin");
             }
 
             return View();

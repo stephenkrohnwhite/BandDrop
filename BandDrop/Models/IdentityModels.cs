@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BandDrop.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -9,6 +10,7 @@ namespace BandDrop.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string UserRole { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -25,7 +27,8 @@ namespace BandDrop.Models
         {
         }
         public DbSet<Musician> Musicians { get; set; }
-
+        public DbSet<Band> Bands { get; set; }
+        public DbSet<BandViewModel> BandViewModels { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
