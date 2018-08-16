@@ -36,6 +36,18 @@ namespace BandDrop
                 url: "chat",
                 defaults: new { controller = "Chat", action = "Index" }
             );
+
+            routes.MapRoute(
+              name: "SendMessage",
+              url: "send_message",
+              defaults: new { controller = "Chat", action = "SendMessage" }
+            );
+
+            routes.MapRoute(
+              name: "PusherAuth",
+              url: "pusher/auth",
+              defaults: new { controller = "Auth", action = "AuthForChannel" }
+            );
         }
     }
 }

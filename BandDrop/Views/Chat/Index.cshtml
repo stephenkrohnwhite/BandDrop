@@ -8,14 +8,139 @@
 <html>
 <head>
     <title>pChat &mdash; Private Chatroom</title>
-    <link rel="stylesheet" href="@Url.Content("~/Content/app.css")">
+
+    <script>
+    let currentContact = null; // Holds current contact
+    let currentconversationChannel = null;
+    let conversationChannelName = null;
+    let newMessageTpl =
+    `<div>
+        <div id="msg-{{id}}" class="row __chat__par__">
+          <div class="__chat__">
+            <p>{{body}}</p>
+            <p class="delivery-status">Delivered</p>
+          </div>
+        </div>
+     </div>`;
+    const pusher = new Pusher('576132', {
+        cluster: 'us2'
+    });
+    pusher.connection.bind('connected', function () {
+        socketId = pusher.connection.socket_id;
+    });
+
+    ...
+    // select contact to chat with
+    $('.user__item').click( function(e) {
+        e.preventDefault();
+
+        currentContact = {
+            id: $(this).data('contact-id'),
+            name: $(this).data('contact-name'),
+        };
+
+        if ( conversationChannelName ) {
+            pusher.unsubscribe( conversationChannelName );
+        }
+
+        conversationChannelName = getConvoChannel(
+                                      (@ViewBag.currentUser.id * 1) ,
+                                      (currentContact.id * 1)
+                                  );
+
+        currentconversationChannel = pusher.subscribe(conversationChannelName);
+
+        bind_client_events();
+
+        $('#contacts').find('li').removeClass('active');
+
+        $('#contacts .contact-' + currentContact.id).find('li').addClass('active');
+        getChat(currentContact.id);
+    });
+    function getConvoChannel(user_id, contact_id) {
+        if (user_id > contact_id) {
+            return 'private-chat-' + contact_id + '-' + user_id;
+        }
+
+        return 'private-chat-' + user_id + '-' + contact_id;
+    }
+    $('#sendMessage').click(function () {
+        $.post("/send_message", {
+            message: $('#msg_box').val(),
+            contact: currentContact.id,
+            socket_id: socketId,
+        }).done(function (data) {
+            //display the message immediately on the view of the sender
+            displayMessage(data);
+            $('#msg_box').val('');
+        });
+    });
+    function bind_client_events(){
+        //listening to the message_sent event by the message's recipient
+        currentconversationChannel.bind("new_message", function(msg) {
+                if ( msg.receiver_id == @ViewBag.currentUser.id ) {
+                    displayMessage(msg);
+                }
+        });
+        currentconversationChannel.bind("message_delivered", function (msg) {
+            $('#msg-' + msg.id).find('.delivery-status').show();
+        });
+    }
+
+
+    // get chat data
+    function getChat( contact_id ) {
+        $.get("/contact/conversations/" + contact_id )
+         .done( function(resp) {
+            var chat_data = resp.data || [];
+            loadChat( chat_data );
+         });
+    }
+
+    //load chat data into view
+    function loadChat( chat_data ) {
+
+        chat_data.forEach( function(data) {
+            displayMessage(data);
+        });
+
+        $('.chat__body').show();
+        $('.__no__chat__').hide();
+    }
+
+    function displayMessage( message_obj ) {
+        const msg_id = message_obj.id;
+        const msg_body = message_obj.message;
+
+        let template = $(newMessageTpl).html();
+
+        template = template.replace("{{id}}", msg_id);
+        template = template.replace("{{body}}", msg_body);
+
+        template = $(template);
+
+        if ( message_obj.sender_id == @ViewBag.currentUser.id ) {
+            template.find('.__chat__').addClass('from__chat');
+        } else {
+            template.find('.__chat__').addClass('receive__chat');
+        }
+
+        if ( message_obj.status == 1 ) {
+            template.find('.delivery-status').show();
+        }
+
+        $('.chat__main').append(template);
+    }
+    </script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">pChat - @ViewBag.currentUser.name </a>
+                <a class="navbar-brand" href="#">@ViewBag.currentUser.BandName - @ViewBag.currentUser.name </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Log Out</a></li>
@@ -35,6 +160,7 @@
                                 </div>
                                 <div class="__no__chat__">
                                     <p>Select a contact to chat with</p>
+
                                 </div>
                                 <div class="panel-body users__body">
                                     <ul id="contacts" class="list-group">
@@ -78,6 +204,6 @@
             </div>
         </div>
     </div>
-    <script src="@Url.Content("~/Content/app.js")"></script>
+   
 </body>
 </html>

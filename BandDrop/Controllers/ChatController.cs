@@ -1,5 +1,7 @@
 ﻿using BandDrop.Models;
+using BandDrop.Utils;
 using Microsoft.AspNet.Identity;
+using PusherServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,23 @@ namespace BandDrop.Controllers
 {
     public class ChatController : Controller
     {
-          public ActionResult Index()
+        private Pusher pusher;
+
+        //class constructor
+        public ChatController()
+        {
+            var options = new PusherOptions();
+            options.Cluster = APIUtility.PusherCluster;
+
+            pusher = new Pusher(
+               APIUtility.PusherAppId,
+               APIUtility.PusherKey,
+               APIUtility.PusherSecretKey,
+               options
+           );
+        }
+
+        public ActionResult Index()
           {
               ApplicationDbContext db = new ApplicationDbContext();
               string userId = User.Identity.GetUserId();
@@ -18,11 +36,78 @@ namespace BandDrop.Controllers
 
               ViewBag.allUsers = db.Musicians.Where(m => m.name != currentUser.name).Where(m => m.BandId == currentUser.BandId)
                                      .ToList();
-             ViewBag.currentUser = currentUser;
+              ViewBag.currentUser = currentUser;
 
 
               return View();
           }
-        
+
+          public JsonResult ConversationWithContact(int contact)
+          {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string userId = User.Identity.GetUserId();
+            var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
+            if (currentUser == null)
+              {
+                  return Json(new { status = "error", message = "User is not logged in" });
+              }
+             var conversations = new List<Models.Conversation>();
+             conversations = db.Conversations.
+                                    Where(c => (c.receiver_id == currentUser.id
+                                        && c.sender_id == contact) ||
+                                        (c.receiver_id == contact
+                                        && c.sender_id == currentUser.id))
+                                      .OrderBy(c => c.created_at)
+                                    .ToList();
+              return Json(
+                  new { status = "success", data = conversations },
+                  JsonRequestBehavior.AllowGet
+              );
+          }
+          [HttpPost]
+          public JsonResult SendMessage()
+          {
+              ApplicationDbContext db = new ApplicationDbContext();
+              string userId = User.Identity.GetUserId();
+              var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
+              if(currentUser == null)
+              {
+                  return Json(new { status = "error", message = "User is not logged in" });
+              }
+            
+              string socket_id = Request.Form["socket_id"];
+
+              Conversation convo = new Conversation
+              {
+                  sender_id = currentUser.id,
+                  message = Request.Form["message"],
+                  receiver_id = Convert.ToInt32(Request.Form["contact"])
+              };
+              db.Conversations.Add(convo);
+              db.SaveChanges();
+            // need to figure out how to reference contact
+
+              var conversationChannel = getConvoChannel(currentUser.id, convo.receiver_id);
+
+              pusher.TriggerAsync(
+                conversationChannel,
+                "new_message",
+                convo,
+                new TriggerOptions() { SocketId = socket_id });
+
+
+            return Json(convo);
+        }
+        private String getConvoChannel(int user_id, int contact_id)
+        {
+            if (user_id > contact_id)
+            {
+                return "private-chat-" + contact_id + "-" + user_id;
+            }
+
+            return "private-chat-" + user_id + "-" + contact_id;
+        }
+
     }
+
 }
