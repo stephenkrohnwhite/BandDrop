@@ -11,9 +11,7 @@ namespace BandDrop.ViewModels
         [Key]
         public int id { get; set; }
         public string Name { get; set; }
-        [Required]
-        [Display(Name="Your email")]
-        public string Email_1 { get; set; }
+        
         [Display(Name = "Bandmate email")]
         public string Email_2 { get; set; }
         [Display(Name = "Bandmate email")]

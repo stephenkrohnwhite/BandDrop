@@ -46,6 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EmailModule, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmailWrapper.1.0.1\lib\EmailModule.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentEmail.Core, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentEmail.Core.2.5.1\lib\netstandard2.0\FluentEmail.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentEmail.Mailgun, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentEmail.Mailgun.2.5.2\lib\netstandard2.0\FluentEmail.Mailgun.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.35.1\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -74,11 +83,17 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PusherServer, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PusherServer.4.1.0\lib\net45\PusherServer.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmailWrapper.1.0.1\lib\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -271,6 +286,10 @@
     <Compile Include="Migrations\201808151513040_test.Designer.cs">
       <DependentUpon>201808151513040_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808160033137_dropping user email fr band viewmodel.cs" />
+    <Compile Include="Migrations\201808160033137_dropping user email fr band viewmodel.Designer.cs">
+      <DependentUpon>201808160033137_dropping user email fr band viewmodel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Band.cs" />
@@ -294,6 +313,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="RestSharp.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -413,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808151513040_test.resx">
       <DependentUpon>201808151513040_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808160033137_dropping user email fr band viewmodel.resx">
+      <DependentUpon>201808160033137_dropping user email fr band viewmodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

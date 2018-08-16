@@ -9,7 +9,9 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using BandDrop.Models;
+using BandDrop.Utils;
 using BandDrop.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace BandDrop.Controllers
 {
@@ -50,7 +52,7 @@ namespace BandDrop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Email_1,Email_2,Email_3,Email_4,Email_5,Email_6,")] BandViewModel band)
+        public ActionResult Create([Bind(Include = "Name,Email_2,Email_3,Email_4,Email_5,Email_6,")] BandViewModel band)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +61,13 @@ namespace BandDrop.Controllers
                 db.Bands.Add(newBand);
                 db.SaveChanges();
                 EmailAllMembers(band);
+                string userId = User.Identity.GetUserId();
+                var user = db.Musicians.FirstOrDefault(m => m.UserId == userId);
+                user.BandName = band.Name;
+                var userBand = db.Bands.Where(b => b.BandName == band.Name).First();
+                user.BandId = userBand.Id;
+                user.Band = userBand;
+                db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
@@ -70,13 +79,10 @@ namespace BandDrop.Controllers
             List<string> bandEmails = GetEmails(band);
             for(int i = 0; i<bandEmails.Count; i++)
             {
-                string Email = ConfigurationManager.AppSettings["Email"].ToString();
-                MailMessage mail = new MailMessage(Email, bandEmails[i]);
-                mail.Subject = "Join your new band!";
-                string mailMessage = "Use code: "+band.Name+" to join chatgroup!";
-                mail.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Send(mail);
+                string receipient = bandEmails[i];
+                string subject = "Join BANDdrop group!";
+                string body = "Join group by entering : " + band.Name + " at band join page!";
+                APIUtility.SendSimpleMessage(receipient, subject, body);
             }
             
 
@@ -85,7 +91,6 @@ namespace BandDrop.Controllers
         private List<string> GetEmails(BandViewModel band)
         {
             List<string> bandList = new List<string>();
-            bandList.Add(band.Email_1);
             if( CheckForNullString(band.Email_2))
             {
                 bandList.Add(band.Email_2);
