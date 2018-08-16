@@ -8,14 +8,14 @@
         <div class="card text-white bg-primary mt-5"
              style="max-width: 20rem;">
             <h5 class="card-header">Create New Group</h5>
-            <a href="#" class="btn btn-primary">Create<a>
+            @Html.ActionLink("Create New Band","Create","Bands", null, new { @class = "btn btn-primary btn-large"})
         </div>
     </div>
     <div class="col-md-6">
         <div class="card text-white bg-primary mt-5"
              style="max-width: 20rem;">
             <h5 class="card-header">Join Existing Group</h5>
-            <a href="#" class="btn btn-primary">Join<a>
+            @Html.ActionLink("Join Existing Band", "Join", "Bands", null, new { @class = "btn btn-primary btn-large" })
         </div>
     </div>
 </div>

@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201808160033137_dropping user email fr band viewmodel.Designer.cs">
       <DependentUpon>201808160033137_dropping user email fr band viewmodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808160132004_adding band join to models.cs" />
+    <Compile Include="Migrations\201808160132004_adding band join to models.Designer.cs">
+      <DependentUpon>201808160132004_adding band join to models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Band.cs" />
@@ -301,6 +305,7 @@
     <Compile Include="SlackUtils\SlackFunction.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\APIUtility.cs" />
+    <Compile Include="ViewModels\BandJoin.cs" />
     <Compile Include="ViewModels\BandViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -381,6 +386,7 @@
     <Content Include="Views\Bands\Edit.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
     <Content Include="Views\Bands\Create.cshtml" />
+    <Content Include="Views\Bands\Join.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -436,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808160033137_dropping user email fr band viewmodel.resx">
       <DependentUpon>201808160033137_dropping user email fr band viewmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808160132004_adding band join to models.resx">
+      <DependentUpon>201808160132004_adding band join to models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

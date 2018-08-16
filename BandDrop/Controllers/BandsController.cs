@@ -39,7 +39,27 @@ namespace BandDrop.Controllers
             }
             return View(band);
         }
+        public ActionResult Join()
+        {
+            var bandJoinModel = new BandJoin();
+            return View(bandJoinModel);
 
+        }
+        [HttpPost]
+        public ActionResult Join([Bind(Include = "BandName")] BandJoin joinModel)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = User.Identity.GetUserId();
+                var user = db.Musicians.FirstOrDefault(m => m.UserId == userId);
+                var band = db.Bands.Where(b => b.BandName == joinModel.BandName).First();
+                user.Band = band;
+                user.BandId = band.Id;
+                user.BandName = band.BandName;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
+        }
         // GET: Bands/Create
         public ActionResult Create()
         {

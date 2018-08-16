@@ -254,3 +254,4 @@ C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\Microsoft.Ex
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\EmailModule.dll
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\EmailModule.pdb
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.droppinguseremailfrbandviewmodel.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingbandjointomodels.resources

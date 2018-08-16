@@ -29,6 +29,7 @@ namespace BandDrop.Models
         public DbSet<Musician> Musicians { get; set; }
         public DbSet<Band> Bands { get; set; }
         public DbSet<BandViewModel> BandViewModels { get; set; }
+        public DbSet<BandJoin> BandJoins { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
