@@ -1,14 +1,9 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+﻿<h2>Index</h2>
 <!DOCTYPE html>
 <html>
 <head>
     <title>pChat &mdash; Private Chatroom</title>
-
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
     let currentContact = null; // Holds current contact
     let currentconversationChannel = null;
@@ -22,14 +17,14 @@
           </div>
         </div>
      </div>`;
-    const pusher = new Pusher('576132', {
+        const pusher = new Pusher('de9851a0744ee8227c97', {
         cluster: 'us2'
     });
     pusher.connection.bind('connected', function () {
         socketId = pusher.connection.socket_id;
     });
 
-    ...
+
     // select contact to chat with
     $('.user__item').click( function(e) {
         e.preventDefault();
@@ -130,9 +125,36 @@
         }
 
         $('.chat__main').append(template);
+        }
+        function bind_client_events(){
+        currentconversationChannel.bind("client-is-typing", function(data) {
+            if ( data.user_id == currentContact.id &&
+                 data.contact_id == @ViewBag.currentUser.id  ) {
+
+                $('#typerDisplay').text( currentContact.name + ' is typing...');
+
+                $('.chat__typing').fadeIn(100, function() {
+                    $('.chat__type__body').addClass('typing_display__open');
+                }).delay(1000).fadeOut(300, function(){
+                    $('.chat__type__body').removeClass('typing_display__open');
+                });
+            }
+        });
+
+
     }
+
+    //User is typing
+    var isTypingCallback = function() {
+        chatChannel.trigger("client-is-typing", {
+            user_id: @ViewBag.currentUser.id,
+            contact_id: currentContact.id,
+        });
+    };
+
+    $('#msg_box').on('keyup',isTypingCallback);
     </script>
-    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
 
 </head>
 <body>
@@ -169,9 +191,7 @@
                                         {
                                             <a class="user__item contact-@user.id" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
                                                 <li>
-                                                    <div class="avatar">
-                                                        <img src="@Url.Content("~/Content/no_avatar.png")">
-                                                    </div>
+                                                  
                                                     <span>@user.name</span>
                                                     <div class="status-bar"></div>
                                                 </li>
@@ -204,6 +224,7 @@
             </div>
         </div>
     </div>
-   
+
 </body>
 </html>
+
