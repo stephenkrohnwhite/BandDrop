@@ -44,10 +44,11 @@ namespace BandDrop
             );
 
             routes.MapRoute(
-              name: "PusherAuth",
+              name: "OusherAuth",
               url: "pusher/auth",
               defaults: new { controller = "Auth", action = "AuthForChannel" }
             );
+            routes.MapMvcAttributeRoutes();
         }
     }
 }

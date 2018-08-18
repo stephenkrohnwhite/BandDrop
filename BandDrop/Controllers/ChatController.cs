@@ -41,9 +41,10 @@ namespace BandDrop.Controllers
 
               return View();
           }
-
-          public JsonResult ConversationWithContact(int contact)
+        [HttpGet]
+        public JsonResult Conversations(int id)
           {
+            
             ApplicationDbContext db = new ApplicationDbContext();
             string userId = User.Identity.GetUserId();
             var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
@@ -54,8 +55,8 @@ namespace BandDrop.Controllers
              var conversations = new List<Models.Conversation>();
              conversations = db.Conversations.
                                     Where(c => (c.receiver_id == currentUser.id
-                                        && c.sender_id == contact) ||
-                                        (c.receiver_id == contact
+                                        && c.sender_id == id) ||
+                                        (c.receiver_id == id
                                         && c.sender_id == currentUser.id))
                                       .OrderBy(c => c.created_at)
                                     .ToList();

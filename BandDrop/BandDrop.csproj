@@ -232,7 +232,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Migrations\201808171409149_changing datetime to system datetime.cs" />
+    <Compile Include="Migrations\201808171409149_changing datetime to system datetime.Designer.cs">
+      <DependentUpon>201808171409149_changing datetime to system datetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808171410439_datetime back to datetime nullable.cs" />
+    <Compile Include="Migrations\201808171410439_datetime back to datetime nullable.Designer.cs">
+      <DependentUpon>201808171410439_datetime back to datetime nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pusher\AuthController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -454,6 +462,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808161328014_adding conversations model.resx">
       <DependentUpon>201808161328014_adding conversations model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808171409149_changing datetime to system datetime.resx">
+      <DependentUpon>201808171409149_changing datetime to system datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808171410439_datetime back to datetime nullable.resx">
+      <DependentUpon>201808171410439_datetime back to datetime nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

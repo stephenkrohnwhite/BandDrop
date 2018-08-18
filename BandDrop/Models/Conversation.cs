@@ -25,7 +25,7 @@ namespace BandDrop.Models
             public int receiver_id { get; set; }
             public string message { get; set; }
             public messageStatus status { get; set; }
-            public DateTime created_at { get; set; }
+            public DateTime? created_at { get; set; }
 
     }
 }

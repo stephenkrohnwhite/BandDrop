@@ -256,3 +256,5 @@ C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\EmailModule.
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.droppinguseremailfrbandviewmodel.resources
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingbandjointomodels.resources
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingconversationsmodel.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.changingdatetimetosystemdatetime.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.datetimebacktodatetimenullable.resources
