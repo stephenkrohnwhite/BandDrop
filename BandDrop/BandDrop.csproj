@@ -240,6 +240,10 @@
     <Compile Include="Migrations\201808171410439_datetime back to datetime nullable.Designer.cs">
       <DependentUpon>201808171410439_datetime back to datetime nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808181434015_adding sender name to conversations model.cs" />
+    <Compile Include="Migrations\201808181434015_adding sender name to conversations model.Designer.cs">
+      <DependentUpon>201808181434015_adding sender name to conversations model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pusher\AuthController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
@@ -468,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808171410439_datetime back to datetime nullable.resx">
       <DependentUpon>201808171410439_datetime back to datetime nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808181434015_adding sender name to conversations model.resx">
+      <DependentUpon>201808181434015_adding sender name to conversations model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,9 +22,11 @@ namespace BandDrop.Models
             [Key]
             public int id { get; set; }
             public int sender_id { get; set; }
+            public string sender_name { get; set; }
             public int receiver_id { get; set; }
             public string message { get; set; }
             public messageStatus status { get; set; }
+            [DataType(DataType.Date)]
             public DateTime? created_at { get; set; }
 
     }

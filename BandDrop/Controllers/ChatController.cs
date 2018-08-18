@@ -78,15 +78,17 @@ namespace BandDrop.Controllers
             
               string socket_id = Request.Form["socket_id"];
 
-              Conversation convo = new Conversation
-              {
-                  sender_id = currentUser.id,
-                  message = Request.Form["message"],
-                  receiver_id = Convert.ToInt32(Request.Form["contact"])
+            Conversation convo = new Conversation
+            {
+                sender_id = currentUser.id,
+                sender_name = currentUser.name,
+                message = Request.Form["message"],
+                receiver_id = Convert.ToInt32(Request.Form["contact"]),
+                created_at = DateTime.Now
               };
               db.Conversations.Add(convo);
               db.SaveChanges();
-            // need to figure out how to reference contact
+
 
               var conversationChannel = getConvoChannel(currentUser.id, convo.receiver_id);
 
