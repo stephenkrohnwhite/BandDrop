@@ -242,51 +242,70 @@
                     @*</div>*@
             </aside>
         </div>
-           
-            
-              <div class="col-xs-12 mw-100 col-md-4 chat__body pl-1 pr-4 pb-0 shadow" style="flex-grow: 1; overflow-y: auto; height: 50vh">
-                   <div class="card-group small-shadow rounded">
-                        <ul class="list-group list-group-flush chat__main d-inline-flex w-100"></ul>
-                    </div>
-                    <aside class="chat__type__body">
-                        <div class="chat__type position-fixed">
-                            <textarea id="msg_box"   placeholder="Type your message"></textarea>
-                            <button class="btn btn-primary" id="sendMessage">Send</button>
-                        </div>
-                    </aside>
-                    <div class="chat__typing">
-                        <span id="typerDisplay"></span>
-                    </div>
-                </div>
-            <div class="col-xs-12 col-md-5 mw-100">
-                <div class="panel pl-4 shadow w-100 h-100" style="flex-grow: 1; overflow-y: auto;">
-                    @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-
-                    <div class="form-group">
-                        <div class="custom-file panel-text">
-                            @Html.LabelFor(a => a.File, "Audio track", htmlAttributes: new { @class = "control-label col-md-2" })
-                        </div>
-                        <div class="col-md-2">
-                            @Html.TextBoxFor(a => a.File, new { type = "file", @class = "btn-secondary" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-2">
-                                @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <br>
-                        <div class="input-group-append">
-                            <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
-                        </div>
-
-                    </div>
-}
-                </div>
-
+    <div class="col-xs-12 mw-100 col-md-4 chat__body pl-1 pr-4 pb-0 shadow" style="flex-grow: 1; overflow-y: auto; height: 50vh">
+        <div class="card-group small-shadow rounded">
+            <ul class="list-group list-group-flush chat__main d-inline-flex w-100"></ul>
+        </div>
+        <aside class="chat__type__body">
+            <div class="chat__type position-fixed">
+                <textarea id="msg_box"   placeholder="Type your message"></textarea>
+                <button class="btn btn-primary" id="sendMessage">Send</button>
             </div>
+        </aside>
+        <div class="chat__typing">
+            <span id="typerDisplay"></span>
+        </div>
+    </div>
+        <div class="col-xs-12 col-md-5 mw-100">
+            <table id="dataTable" class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Play Audio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in ViewBag.Songs)
+                 {
+                <tr>
+                  <td>@item.Name</td>
+                     <td>
+                        <audio controls>
+                            <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
+                        </audio>
+                     </td>
+                </tr>
+                }
+                 </tbody>
+            </table>
+                  <div class="panel pl-4 shadow w-100 h-100" style="flex-grow: 1; overflow-y: auto;">
+                      @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+              <div class="form-group">
+                  <div class="custom-file panel-text">
+                      @Html.LabelFor(a => a.File, "Audio track", htmlAttributes: new { @class = "control-label col-md-2" })
+                  </div>
+                  <div class="col-md-2">
+                      @Html.TextBoxFor(a => a.File, new { type = "file", @class = "btn-secondary" })
+                  </div>
+                  <div class="form-group">
+                      @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                      <div class="col-md-2">
+                          @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control" } })
+                          @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
+                      </div>
+                  </div>
+                  <br>
+                  <div class="input-group-append">
+                      <input type="submit" id="btnUpload" class="btn btn-secondary" value="Upload" />
+                  </div>
+
+              </div>
+}
+                  </div>
+
+              </div>
           
        </div>
     </div>

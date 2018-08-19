@@ -37,8 +37,8 @@ namespace BandDrop.Controllers
               ViewBag.allUsers = db.Musicians.Where(m => m.name != currentUser.name).Where(m => m.BandId == currentUser.BandId)
                                      .ToList();
               ViewBag.currentUser = currentUser;
-
-
+              List<AudioFile> tracks = db.AudioFiles.Where(t => t.BandId == currentUser.BandId).ToList();
+              ViewBag.Songs = tracks;
               return View();
           }
         [HttpGet]

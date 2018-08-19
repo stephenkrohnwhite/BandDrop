@@ -1,5 +1,6 @@
 ﻿using BandDrop.Models;
 using BandDrop.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,27 +23,28 @@ namespace BandDrop.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadAudio(HttpPostedFileBase fileupload)
+        public ActionResult UploadAudio(AudioFileVM fileupload)
         {
-            if (fileupload != null)
+            ApplicationDbContext db = new ApplicationDbContext();
+            AudioFile track = new AudioFile();
+            if (fileupload.File != null && fileupload.File.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(fileupload.FileName);
-                int fileSize = fileupload.ContentLength;
-                int Size = fileSize / 1000000;
-                fileupload.SaveAs(Server.MapPath("~/AudioFileUpload/" + fileName));
+                var uploadDir = "~/AudioFileUpload";
+                var imagePath = Path.Combine(Server.MapPath(uploadDir), fileupload.File.FileName);
+                var imageUrl = Path.Combine(uploadDir,fileupload.File.FileName);
+                fileupload.File.SaveAs(imagePath);
+                track.FilePath = imageUrl;
+                track.Name = fileupload.Name;
+                string userId = User.Identity.GetUserId();
+                var user = db.Musicians.Where(m => m.UserId == userId).First();
+                track.BandId = user.BandId.GetValueOrDefault();
+                track.BandName = user.BandName;
+                db.AudioFiles.Add(track);
+                db.SaveChanges();
 
-                string CS = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    SqlCommand cmd = new SqlCommand("spAddNewAudioFile", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@Name", fileName);
-                    cmd.Parameters.AddWithValue("FilePath", "~/AudioFileUpload/" + fileName);
-                    cmd.ExecuteNonQuery();
-                }
             }
-            return RedirectToAction("UploadAudio");
+            
+            return RedirectToAction("Index", "Chat");
         }
     }
 }
