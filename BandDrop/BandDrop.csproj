@@ -73,6 +73,9 @@
     <Reference Include="Google.Apis.PlatformServices, Version=1.35.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.35.1\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMusicApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Music.Api.1.0.0.20\lib\net452\GoogleMusicApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -94,6 +97,9 @@
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EmailWrapper.1.0.1\lib\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SoundCloud.API.Client, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SoundCloud.API.Client.1.0.0.5\lib\net45\SoundCloud.API.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -232,6 +238,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AudioFilesController.cs" />
     <Compile Include="Migrations\201808171409149_changing datetime to system datetime.cs" />
     <Compile Include="Migrations\201808171409149_changing datetime to system datetime.Designer.cs">
       <DependentUpon>201808171409149_changing datetime to system datetime.cs</DependentUpon>
@@ -244,6 +251,15 @@
     <Compile Include="Migrations\201808181434015_adding sender name to conversations model.Designer.cs">
       <DependentUpon>201808181434015_adding sender name to conversations model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808191159183_adding audiofile model.cs" />
+    <Compile Include="Migrations\201808191159183_adding audiofile model.Designer.cs">
+      <DependentUpon>201808191159183_adding audiofile model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808191340337_droping audiofile size.cs" />
+    <Compile Include="Migrations\201808191340337_droping audiofile size.Designer.cs">
+      <DependentUpon>201808191340337_droping audiofile size.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Pusher\AuthController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
@@ -322,6 +338,7 @@
     <Compile Include="SlackUtils\SlackFunction.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\APIUtility.cs" />
+    <Compile Include="ViewModels\AudioFileVM.cs" />
     <Compile Include="ViewModels\BandJoin.cs" />
     <Compile Include="ViewModels\BandViewModel.cs" />
   </ItemGroup>
@@ -405,9 +422,11 @@
     <Content Include="Views\Bands\Join.cshtml" />
     <Content Include="Views\Chat\IndexTwo.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\AudioFiles\UploadAudio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="AudioFileUpload\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\HelloWorld\" />
   </ItemGroup>
@@ -475,6 +494,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808181434015_adding sender name to conversations model.resx">
       <DependentUpon>201808181434015_adding sender name to conversations model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808191159183_adding audiofile model.resx">
+      <DependentUpon>201808191159183_adding audiofile model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808191340337_droping audiofile size.resx">
+      <DependentUpon>201808191340337_droping audiofile size.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

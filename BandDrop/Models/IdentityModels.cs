@@ -31,6 +31,7 @@ namespace BandDrop.Models
         public DbSet<BandViewModel> BandViewModels { get; set; }
         public DbSet<BandJoin> BandJoins { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<AudioFile> AudioFiles { get; set; }
 
         public static ApplicationDbContext Create()
         {

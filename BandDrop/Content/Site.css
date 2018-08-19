@@ -159,15 +159,16 @@
         }
 
     .chat__body .chat__type__body {
+        vertical-align: bottom;
         position: absolute;
         height: 50px;
         bottom: 0px;
         left: 0px;
         right: 0px;
-        margin-bottom: 0px;
         display: flex;
         flex-direction: column-reverse;
         width: 100%;
+        overflow: hidden;
     }
 
         .chat__body .chat__type__body .chat__type {
@@ -177,7 +178,9 @@
         }
 
             .chat__body .chat__type__body .chat__type textarea {
-                width: inherit;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
                 background-color: inherit;
                 padding: 10px 10px 0px;
                 border: none;

@@ -259,3 +259,7 @@ C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDr
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.datetimebacktodatetimenullable.resources
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.csprojResolveAssemblyReference.cache
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingsendernametoconversationsmodel.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\SoundCloud.API.Client.dll
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\GoogleMusicApi.dll
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingaudiofilemodel.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.dropingaudiofilesize.resources
