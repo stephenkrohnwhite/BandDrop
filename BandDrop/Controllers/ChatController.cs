@@ -65,7 +65,28 @@ namespace BandDrop.Controllers
                   JsonRequestBehavior.AllowGet
               );
           }
-          [HttpPost]
+        [HttpGet]
+        public JsonResult GroupConversations()
+        {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            string userId = User.Identity.GetUserId();
+            var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
+            if (currentUser == null)
+            {
+                return Json(new { status = "error", message = "User is not logged in" });
+            }
+            var conversations = new List<Models.Conversation>();
+            conversations = db.Conversations.
+                                   Where(c => c.receiver_id == 0)
+                                     .OrderBy(c => c.created_at)
+                                   .ToList();
+            return Json(
+                new { status = "success", data = conversations },
+                JsonRequestBehavior.AllowGet
+            );
+        }
+        [HttpPost]
           public JsonResult SendMessage()
           {
               ApplicationDbContext db = new ApplicationDbContext();
@@ -77,30 +98,61 @@ namespace BandDrop.Controllers
               }
             
               string socket_id = Request.Form["socket_id"];
+              Conversation convo = new Conversation
+                {
+                    sender_id = currentUser.id,
+                    sender_name = currentUser.name,
+                    message = Request.Form["message"],
+                    receiver_id = Convert.ToInt32(Request.Form["contact"]),
+                    created_at = DateTime.Now
+                };
+                db.Conversations.Add(convo);
+                db.SaveChanges();
+                
+                var conversationChannel = getConvoChannel(currentUser.id, convo.receiver_id);
 
+                pusher.TriggerAsync(
+                  conversationChannel,
+                  "new_message",
+                  convo,
+                  new TriggerOptions() { SocketId = socket_id });
+
+                return Json(convo);
+            }
+        [HttpPost]
+        public JsonResult SendGroupMessage()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string userId = User.Identity.GetUserId();
+            var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
+            if (currentUser == null)
+            {
+                return Json(new { status = "error", message = "User is not logged in" });
+            }
+
+            string socket_id = Request.Form["socket_id"];
             Conversation convo = new Conversation
             {
                 sender_id = currentUser.id,
                 sender_name = currentUser.name,
                 message = Request.Form["message"],
-                receiver_id = Convert.ToInt32(Request.Form["contact"]),
+                receiver_id = 0,
                 created_at = DateTime.Now
-              };
-              db.Conversations.Add(convo);
-              db.SaveChanges();
+            };
+            db.Conversations.Add(convo);
+            db.SaveChanges();
 
+            var conversationChannel = "private-chat-537";
 
-              var conversationChannel = getConvoChannel(currentUser.id, convo.receiver_id);
-
-              pusher.TriggerAsync(
-                conversationChannel,
-                "new_message",
-                convo,
-                new TriggerOptions() { SocketId = socket_id });
-
+            pusher.TriggerAsync(
+              conversationChannel,
+              "new_message",
+              convo,
+              new TriggerOptions() { SocketId = socket_id });
 
             return Json(convo);
         }
+
         private String getConvoChannel(int user_id, int contact_id)
         {
             if (user_id > contact_id)

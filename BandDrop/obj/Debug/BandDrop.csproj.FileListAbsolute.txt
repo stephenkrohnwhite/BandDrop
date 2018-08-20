@@ -263,3 +263,4 @@ C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\SoundCloud.A
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\bin\GoogleMusicApi.dll
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.addingaudiofilemodel.resources
 C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.dropingaudiofilesize.resources
+C:\Users\steph\Documents\DevCodeCamp\Capstone\BandDrop\BandDrop\obj\Debug\BandDrop.Migrations.test1.resources

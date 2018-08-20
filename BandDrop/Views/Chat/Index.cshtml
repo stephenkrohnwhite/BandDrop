@@ -28,6 +28,7 @@
                     </div>
                  </div>
                 </li>`;
+
             const pusher = new Pusher('de9851a0744ee8227c97', {
                 authEndpoint: '@Url.Action("AuthForChannel", "Auth")',
                 cluster: 'us2'
@@ -36,6 +37,12 @@
                 socketId = pusher.connection.socket_id;
             });
 
+            if (conversationChannelName) {
+                pusher.unsubscribe(conversationChannelName);
+            }
+            currentconversationChannel = pusher.subscribe('private-chat-' + '537')
+            bind_group_events();
+         
             $(".user__item").click(function (e) {
                 e.preventDefault();
                 currentContact = {
@@ -70,21 +77,32 @@
             }
 
             $('#sendMessage').on('click', function () {
-                $.post('@Url.Action("SendMessage", "Chat")', {
-                    message: $('#msg_box').val(),
-                    contact: currentContact.id,
-                    socket_id: socketId,
-                }).done(function (data) {
-                    //display the message immediately on the view of the sender
-                    displayMessage(data);
-                    $('#msg_box').val('');
-                });
+                var object = new Object();
+                if (currentContact == null) {
+                    
+                    $.post('@Url.Action("SendGroupMessage","Chat")', {
+                        message: $('#msg_box').val(),
+                        socket_id: socketId,
+                        data: object
+                    }).done(function (data) {
+                        //display the message immediately on the view of the sender
+                        displayMessage(data);
+                        $('#msg_box').val('');
+                    });
+                }
+                else {
+                    $.post('@Url.Action("SendMessage", "Chat")', {
+                        message: $('#msg_box').val(),
+                        contact: currentContact.id,
+                        socket_id: socketId,
+                    }).done(function (data) {
+                        //display the message immediately on the view of the sender
+                        displayMessage(data);
+                        $('#msg_box').val('');
+
+                    });
+                }
             });
-
-
-
-
-
 
             // get chat data
             function getChat(contact_id) {
@@ -159,16 +177,36 @@
                         });
                     }
                 });
-                currentconversationChannel.bind("new_message", function(msg) {
-                if ( msg.receiver_id == @ViewBag.currentUser.id ) {
-                    displayMessage(msg);
-                }
+                currentconversationChannel.bind("new_message", function (msg) {
+                    if (msg.receiver_id == @ViewBag.currentUser.id ) {
+                        displayMessage(msg);
+                    }
                 });
                 currentconversationChannel.bind("message_delivered", function (msg) {
                     $('#msg-' + msg.id).find('.delivery-status').show();
                 });
             }
-         //User is typing
+            function bind_group_events() {
+                getGroupChat(0);
+                currentconversationChannel.bind("new_message", function (msg) {
+                    if (msg.receiver_id == 0 ) {
+                        displayMessage(msg);
+                    }
+                });
+            }
+            function getGroupChat() {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GroupConversations","Chat")',
+                    dataType: "json"
+                })
+
+                    .done(function (resp) {
+                        var chat_data = resp.data || [];
+                        loadChat(chat_data);
+                    });
+            }
+            //User is typing
             var isTypingCallback = function () {
                 currentconversationChannel.trigger("client-is-typing", {
                     user_id: @ViewBag.currentUser.id,
@@ -177,26 +215,9 @@
             };
 
             $('#msg_box').on('keyup', isTypingCallback);
-        });
-        $("#out").animate({ scrollTop: $(document).height() }, "fast");
 
-        // soundcloud implementation
-
-
-     
+        });  
     </script>
-    @*<script type="text/javascript">
-
-        $(document).ready(function () {
-            $('#dataTable').DataTable();
-
-            $("audio").on("play", function () {
-                $("audio").not(this).each(function (index, audio) {
-                    audio.pause();
-                });
-            });
-        });
-    </script>*@
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -242,21 +263,21 @@
                     @*</div>*@
             </aside>
         </div>
-    <div class="col-xs-12 mw-100 col-md-4 chat__body pl-1 pr-4 pb-0 shadow" style="flex-grow: 1; overflow-y: auto; height: 50vh">
+    <div class="col-xs-12 mw-100 col-md-3 chat__body pb-0 shadow" style="flex-grow: 1; overflow-y: auto; height: 50vh">
         <div class="card-group small-shadow rounded">
             <ul class="list-group list-group-flush chat__main d-inline-flex w-100"></ul>
         </div>
-        <aside class="chat__type__body">
-            <div class="chat__type position-fixed">
-                <textarea id="msg_box"   placeholder="Type your message"></textarea>
+        <div class="chat__type__body">
+            <div class="chat__type">
+                <textarea id="msg_box" style="position: relative; bottom: 0;"  placeholder="Type your message"></textarea>
                 <button class="btn btn-primary" id="sendMessage">Send</button>
             </div>
-        </aside>
+        </div>
         <div class="chat__typing">
             <span id="typerDisplay"></span>
         </div>
     </div>
-        <div class="col-xs-12 col-md-5 mw-100">
+        <div class="col-xs-12 col-md-4 mw-100">
             <table id="dataTable" class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -278,7 +299,7 @@
                 }
                  </tbody>
             </table>
-                  <div class="panel pl-4 shadow w-100 h-100" style="flex-grow: 1; overflow-y: auto;">
+                  <div class="panel  shadow w-100 h-100" style="flex-grow: 1; overflow-y: auto;">
                       @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 

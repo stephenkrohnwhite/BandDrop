@@ -58,13 +58,13 @@ namespace BandDrop.Controllers
             APIUtility.PusherAppId,
             APIUtility.PusherKey,
             APIUtility.PusherSecretKey, options);
-
-            if (channel_name.IndexOf(currentUser.id.ToString()) == -1)
-            {
-                return Json(
-                  new { status = "error", message = "User cannot join channel" }
-                );
-            }
+            
+            //if (channel_name.IndexOf(currentUser.id.ToString()) == -1)
+            //{
+            //    return Json(
+            //      new { status = "error", message = "User cannot join channel" }
+            //    );
+            //}
 
             var auth = pusher.Authenticate(channel_name, socket_id);
 

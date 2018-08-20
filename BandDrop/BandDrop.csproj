@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201808191340337_droping audiofile size.Designer.cs">
       <DependentUpon>201808191340337_droping audiofile size.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808200001065_test1.cs" />
+    <Compile Include="Migrations\201808200001065_test1.Designer.cs">
+      <DependentUpon>201808200001065_test1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Pusher\AuthController.cs" />
     <Compile Include="Controllers\BandsController.cs" />
@@ -500,6 +504,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808191340337_droping audiofile size.resx">
       <DependentUpon>201808191340337_droping audiofile size.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808200001065_test1.resx">
+      <DependentUpon>201808200001065_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

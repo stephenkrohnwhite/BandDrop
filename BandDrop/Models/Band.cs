@@ -12,6 +12,7 @@ namespace BandDrop.Models
         public int Id { get; set; }
         [Display(Name = "Band Name")]
         public string BandName { get; set; }
+        public string BandImagePath { get; set; }
 
     }
 }
