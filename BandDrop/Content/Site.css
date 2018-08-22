@@ -30,7 +30,7 @@
 
 .panel-body {
     overflow-y: auto;
-    height: 250px;
+    /*height: 250px;*/
 }
 
 ::-webkit-scrollbar-track {
@@ -124,7 +124,7 @@
 
 .chat__body {
     position: relative;
-    background-color: #f2f2f2;
+    /*background-color: #f2f2f2;*/
     height: 600px;
 }
 
@@ -159,7 +159,7 @@
 
     .chat__body .chat__type__body {
         vertical-align: bottom;
-        position: absolute;
+        position: relative;
         height: 50px;
         bottom: 0px;
         left: 0px;
@@ -178,7 +178,7 @@
                 max-width: 100%;
                 position: absolute;
                 bottom:0;
-                width: 100%;
+                width: 80%;
                 overflow: hidden;
                 background-color: inherit;
                 padding: 10px 10px 0px;
@@ -189,8 +189,12 @@
             .chat__body .chat__type__body .chat__type #sendMessage {
                 position: relative;
                 display: inline-block;
-                top: -15px;
-                width: 14%;
+                bottom: 0px;
+                float: right;
+                width: 20%;
+                padding-top: .75rem;
+                padding-bottom: .75rem;
+                font-size: 105%;
             }
 
     .chat__body .typing_display__open {
