@@ -21,7 +21,7 @@
 
         .chat li .chat-body p {
             margin: 0;
-            color: #777777;
+            color: #DFDFDD;
         }
 
     .panel .slidedown .glyphicon, .chat .glyphicon {
@@ -35,17 +35,17 @@
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
 }
 
 ::-webkit-scrollbar {
     width: 12px;
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
 }
 
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #555;
+    /*background-color: #555;*/
 }
 .panel-text {
     font-weight: bold;
@@ -66,7 +66,7 @@
     }
 
     .users__bar .panel-heading.users__heading {
-        /*padding: 15px 15px;*/
+        padding: 15px 15px;
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
         color: #fff;
@@ -110,8 +110,9 @@
                 }
 
             .users__bar .panel-body.users__body .user__item .status-bar {
-                /*width: 10px;
-                height: 10px;*/
+                padding: .2rem;
+                width: 10px;
+                height: 10px;
                 border-radius: 50%;
                 background-color: rgba(128, 128, 128, 0.425);
                 display: inline-block;
@@ -124,8 +125,9 @@
 
 .chat__body {
     position: relative;
-    /*background-color: #f2f2f2;*/
-    height: 600px;
+    background-color: #f2f2f2;
+    /*height: 600px;*/
+    max-height: 60vh;
 }
 
     .chat__body .chat__main .__chat__ {
@@ -133,6 +135,7 @@
         border-radius: 20px;
         margin: 20px 20px 0px 20px;
         width: 70%;
+        
     }
 
         .chat__body .chat__main .__chat__ p {
@@ -218,3 +221,42 @@
             font-size: 12px;
             color: #999999;
         }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+.footer {
+    position: relative;
+}

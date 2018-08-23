@@ -233,40 +233,71 @@
         </div>
     </nav>
     <!-- / Navigation Bar -->
-    <div class="container position-relative mw-100 w-100 pt-4" style="height: 60vh;">
+    <div class="container position-relative w-100 pt-4">
         <div class="row mw-100">
             <div class="col-xs-12 col-md-3 h-100" >
-                <aside class="main visible-md visible-lg h-100">
+                <aside class="main visible-md visible-lg h-100 rounded shadow">
                     @*<div class="row pr-2" style="height: 100%">*@
-                    <div class="panel shadow w-100 h-100">
-                        <div class="panel panel-default users__bar bg-primary">
-                            <div class="panel-heading users__heading text-primary card-header">
-                                <h4 class="text-white">Contacts (@ViewBag.allUsers.Count)</h4>
+                    <div class="panel w-100 h-100 rounded">
+                        
+                        <div class="panel panel-default users__bar">
+                            <div class="panel-heading users__heading text-primary card-header rounded">
+                                <h4>@ViewBag.currentUser.BandName (@ViewBag.allUsers.Count)</h4>
                             </div>
-                            <div class="__no__chat__ bg-light">
+                            <div class="__no__chat__">
                                 <p class="text-primary pl-2 pt-1">Select bandmate</p>
                             </div>
                             <a class="users__body">
-                                <ul id="contacts" class="list-group mh-80">
+                                <ul id="contacts" class="mh-80 mt-2">
                                     @foreach (var user in @ViewBag.allUsers)
                                     {
-                                        <a class="user__item contact-@user.id text-info pl-3 list-group-item" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
-                                            <li class="list-group-item-secondary shadow-sm">
-                                                <span class="list-group-item shadow-sm text-dark card-text">@user.name</span>
+                                        <a class="user__item contact-@user.id" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
+                                            <li>
+                                                <span class="text-center text-dark pt-2">@user.name</span>
                                                 <div class="status-bar"></div>
                                             </li>
                                         </a>
                                     }
                                 </ul>
                             </a>
+                            
+                        </div>
+                        <div class="bandImage">
+                            @if(ViewBag.Band.BandImagePath != null)
+                            {
+                            <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="img-fluid" />
+                            }
+                            <div class="pl-3 pt-2  pb-2">
+                                <button class="btn-info sandstone rounded shadow" id="openModal">Select Band Image</button>
+                                <div id="modalSelect" class="modal bg-transparent">
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                         @using (Html.BeginForm("SetBandImage", "Bands", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                           {
+                                        <div class="form-group">
+                                            <div class="custom-file panel-text">
+                                                @Html.LabelFor(a => a.File, "Select image", htmlAttributes: new { @class = "control-label w-100 pl-3" })
+                                            </div>
+                                            <div class="col-md-2">
+                                                @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file", @class = "btn-outline-primary" })
+                                            </div>
+                                            <div class="input-group-append pl-3">
+                                                <input type="submit" id="btnUpload" class="btn btn-outline-primary" value="Upload" />
+                                            </div>
+                                        </div>
+                                            }
+                                          </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     @*</div>*@
                 </aside>
             </div>
-            <div id="chat_window"  class="col-xs-12 mw-100 col-md-4 chat__body pb-0 shadow" style="overflow-y: scroll;">
+            <div id="chat_window"  class="col-xs-12 mw-100 col-md-4 chat__body pb-0 rounded shadow" style="overflow-y: scroll;">
                 <div class="card-group small-shadow rounded">
-                    <ul class="list-group list-group-flush chat__main d-inline-flex w-100"></ul>
+                    <ul class="list-group list-group-flush chat__main  w-100"></ul>
                 </div>
                 <div class="chat__type__body fixed-bottom">
                     <div class="chat__type ">
@@ -278,8 +309,8 @@
                     <span id="typerDisplay"></span>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-5 w-100 mw-100" style="overflow-y: scroll;">
-                <table id="dataTable" class="table table-bordered table-light">
+            <div class="col-xs-12 col-md-5 w-100 mw-100 mh-80 rounded shadow" style="overflow-y: scroll; max-height: 60vh">
+                <table id="dataTable" class="table table-bordered table-primary">
                     <thead class="thead-dark">
                         <tr>
                             <th>Name</th>
@@ -337,6 +368,36 @@
             }
             scrollToBottom("chat_window");
         });
+        $(".openModalHidden")
+            .on("mouseenter", function () {
+                $("openModaHidden").show();
+            })
+            .on("mouseleave", function () {
+                $("button").hide();
+            });
+        // Get the modal
+        var modal = document.getElementById('modalSelect');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
         
     </script>
 </body>

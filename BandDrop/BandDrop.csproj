@@ -431,6 +431,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="AudioFileUpload\" />
+    <Folder Include="Images\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\HelloWorld\" />
   </ItemGroup>

@@ -39,7 +39,9 @@ namespace BandDrop.Controllers
               ViewBag.currentUser = currentUser;
               List<AudioFile> tracks = db.AudioFiles.Where(t => t.BandId == currentUser.BandId).ToList();
               ViewBag.Songs = tracks;
-              return View();
+            var band = db.Bands.Where(b => b.Id == currentUser.BandId).First();
+            ViewBag.Band = band;
+            return View();
           }
         [HttpGet]
         public JsonResult Conversations(int id)

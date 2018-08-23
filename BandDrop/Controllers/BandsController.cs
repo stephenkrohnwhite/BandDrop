@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -199,7 +200,26 @@ namespace BandDrop.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult SetBandImage(AudioFileVM fileupload)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string currentUserId = User.Identity.GetUserId();
+            var currentUser = db.Musicians.Where(m => m.UserId == currentUserId).First();
+            var band = db.Bands.Where(b => b.Id == currentUser.BandId).First();
+            if (fileupload.File != null && fileupload.File.ContentLength > 0)
+            {
+                var uploadDir = "~/Images";
+                var imagePath = Path.Combine(Server.MapPath(uploadDir), fileupload.File.FileName);
+                var imageUrl = Path.Combine(uploadDir, fileupload.File.FileName);
+                fileupload.File.SaveAs(imagePath);
+                band.BandImagePath = imageUrl;
+                db.SaveChanges();
 
+            }
+
+            return RedirectToAction("Index", "Chat");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

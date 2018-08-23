@@ -73,7 +73,7 @@ body {
     line-height: 1.5;
     color: #3E3F3A;
     text-align: left;
-    background-color: #fff
+    background-color: #F5EFEA
 }
 
 [tabindex="-1"]:focus {
@@ -526,38 +526,40 @@ pre {
 
 .container {
     width: 100%;
-    padding-right: 6px;
-    padding-left: 6px;
+    padding-right: 15px;
+    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    height: 100%;
 }
 
 @media (min-width: 576px) {
     .container {
-        max-width: 620px;
-        padding: 5px;
+        max-width: 540px;
+        max-height: 303px
     }
 }
 
 @media (min-width: 768px) {
     .container {
-        max-width: 820px;
-        
+        max-width: 720px;
+        max-height: 403px;
     }
 }
 
 @media (min-width: 992px) {
     .container {
-        max-width: 1020px
+        max-width: 960px;
+        max-height: 537px;
     }
 }
 
 @media (min-width: 1200px) {
     .container {
-        max-width: 1240px
+        max-width: 1140px;
+        max-height: 638px;
     }
 }
+
 
 .container-fluid {
     width: 100%;
