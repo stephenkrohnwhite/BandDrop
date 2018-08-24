@@ -24,7 +24,7 @@ namespace BandDrop
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css", "~/Content/Materia.css",
+                      "~/Content/bootstrap.css", "~/Content/wizardry.css",
                       "~/Content/site.css"));
         }
     }

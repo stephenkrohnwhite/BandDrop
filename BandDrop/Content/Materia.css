@@ -526,37 +526,38 @@ pre {
 
 .container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 1px;
+    padding-left: 1px;
     margin-right: auto;
     margin-left: auto;
+    max-height: 60vh;
 }
 
 @media (min-width: 576px) {
     .container {
         max-width: 540px;
-        max-height: 303px
+        /*max-height: 303px*/
     }
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
-        max-height: 403px;
+        /*max-height: 403px;*/
     }
 }
 
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
-        max-height: 537px;
+        /*max-height: 537px;*/
     }
 }
 
 @media (min-width: 1200px) {
     .container {
-        max-width: 1140px;
-        max-height: 638px;
+        max-width: 1240px;
+        /*max-height: 638px;*/
     }
 }
 

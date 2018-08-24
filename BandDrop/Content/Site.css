@@ -35,12 +35,12 @@
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    /*background-color: #F5F5F5;*/
+    background-color: #F5F5F5;
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
-    /*background-color: #F5F5F5;*/
+    width: .4rem;
+    background-color: #F5F5F5;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -55,7 +55,7 @@
     text-align: right;
 }
 .users__bar {
-    background-color: #f2f2f2;
+    
 }
 
     .users__bar .__no__chat__ {
@@ -66,9 +66,11 @@
     }
 
     .users__bar .panel-heading.users__heading {
-        padding: 15px 15px;
+        padding: 10px 10px;
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
+        font-size: 1.25rem;
+        font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
         color: #fff;
     }
 
@@ -91,12 +93,13 @@
                 position: relative;
                 display: block;
                 padding: 10px 10px;
-                background-color: #e6e6e6;
+                /*background-color: #e6e6e6;*/
                 border: 1px solid #ddd;
+                
             }
 
                 .users__bar .panel-body.users__body .user__item li.active {
-                    background-color: rgba(128, 128, 128, 0.425);
+                    
                 }
 
             .users__bar .panel-body.users__body .user__item .avatar {
@@ -125,17 +128,20 @@
 
 .chat__body {
     position: relative;
-    background-color: #f2f2f2;
+    
+    /*background-color: #f2f2f2;*/
     /*height: 600px;*/
     max-height: 60vh;
 }
 
     .chat__body .chat__main .__chat__ {
-        padding: 15px 15px;
-        border-radius: 20px;
-        margin: 20px 20px 0px 20px;
-        width: 70%;
+        padding: 8px 8px;
+        border-radius: 8px;
+        margin: 8px 8px 0px 8px;
+        width: 90%;
+        box-shadow: inherit;
         
+        -webkit-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
     }
 
         .chat__body .chat__main .__chat__ p {
@@ -151,14 +157,19 @@
             }
 
         .chat__body .chat__main .__chat__.from__chat {
-            background-color: #d9d9d9;
+            background-color: white;
+            text-shadow: 0 .1rem rgba(0,0,0,.15);
         }
+    .chat__body .chat__main .chat__.from__chat .h6 {
+        color: darkslategray;
+        text-shadow: 0 .15rem rgba(0,0,0,.15);
+    }
 
-        .chat__body .chat__main .__chat__.receive__chat {
-            background-color: #4d9aff;
-            float: right;
-            color: #fff;
-        }
+    .chat__body .chat__main .__chat__.receive__chat {
+        background-color: #4d9aff;
+        float: right;
+        color: azure;
+    }
 
     .chat__body .chat__type__body {
         vertical-align: bottom;
@@ -169,24 +180,27 @@
         right: 0px;
         width: 100%;
         overflow: hidden;
+        
     }
 
         .chat__body .chat__type__body .chat__type {
-            background-color: #e6e6e6;
+            background-color: white;
             width:inherit;
             max-width: 100%;
+            
         }
 
             .chat__body .chat__type__body .chat__type textarea {
                 max-width: 100%;
                 position: absolute;
-                bottom:0;
-                width: 80%;
+                bottom: 0;
+                width: 85%;
                 overflow: hidden;
                 background-color: inherit;
                 padding: 10px 10px 0px;
                 border: none;
                 display: inline-block;
+                padding-bottom: 3px;
             }
 
             .chat__body .chat__type__body .chat__type #sendMessage {
@@ -259,4 +273,33 @@
     }
 .footer {
     position: relative;
+}
+audio {
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    -moz-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border-radius: 7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
+    text-shadow: 0 .2rem rgba(0,0,0,.15);
+    background-color: darkslategray;
+    background: #4c4e5a;
+    -webkit-tap-highlight-color:black;
+}
+.tableText {
+    text-shadow: 0 .1rem rgba(0,0,0,.15);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: smaller;
+}
+.tableHead {
+    padding: 10px 10px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    font-size: 1.25rem;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    color: #fff;
 }
