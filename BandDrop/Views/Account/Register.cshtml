@@ -30,10 +30,7 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.UserRole, new { @class="col-md-2 control-label"})
-        <div class="col-md-10">
-            @Html.RadioButtonFor(m => m.UserRole, "Musician", new { @class = "radio-inline" })@Html.Label("Musician")
-        </div>
+        @Html.HiddenFor(m => m.UserRole)
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

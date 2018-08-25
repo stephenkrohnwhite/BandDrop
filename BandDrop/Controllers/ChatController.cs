@@ -74,13 +74,14 @@ namespace BandDrop.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             string userId = User.Identity.GetUserId();
             var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
+            int bandId = currentUser.BandId.Value;
             if (currentUser == null)
             {
                 return Json(new { status = "error", message = "User is not logged in" });
             }
             var conversations = new List<Models.Conversation>();
             conversations = db.Conversations.
-                                   Where(c => c.receiver_id == 0)
+                                   Where(c => c.receiver_id == bandId+587)
                                      .OrderBy(c => c.created_at)
                                    .ToList();
             return Json(
@@ -133,18 +134,19 @@ namespace BandDrop.Controllers
             }
 
             string socket_id = Request.Form["socket_id"];
+            int bandId = currentUser.BandId.Value;
             Conversation convo = new Conversation
             {
                 sender_id = currentUser.id,
                 sender_name = currentUser.name,
                 message = Request.Form["message"],
-                receiver_id = 0,
+                receiver_id = bandId+587,
                 created_at = DateTime.Now
             };
             db.Conversations.Add(convo);
             db.SaveChanges();
 
-            var conversationChannel = "private-chat-537";
+            var conversationChannel = "private-chat-"+currentUser.BandId+"537";
 
             pusher.TriggerAsync(
               conversationChannel,

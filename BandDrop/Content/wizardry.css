@@ -66,7 +66,7 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #e0e0e2
+    background-color: antiquewhite
 }
 
 [tabindex="-1"]:focus {
@@ -526,25 +526,25 @@ pre {
 
 @media (min-width:576px) {
     .container {
-        max-width: 540px
+        max-width: 100%;
     }
 }
 
 @media (min-width:768px) {
     .container {
-        max-width: 720px
+        max-width: 100%;
     }
 }
 
 @media (min-width:992px) {
     .container {
-        max-width: 960px
+        max-width: 90%;
     }
 }
 
 @media (min-width:1200px) {
     .container {
-        max-width: 1140px
+        max-width: 90%;
     }
 }
 
@@ -4760,7 +4760,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         }
 
 .navbar-dark .navbar-brand {
-    color: #fff
+    color: black;
 }
 
     .navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {

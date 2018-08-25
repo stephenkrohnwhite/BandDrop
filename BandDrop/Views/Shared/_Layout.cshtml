@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - BANDdrop</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -11,9 +11,11 @@
 </head>
 
 <body>
-    <div class="navbar navbar-expand-lg bg-dark navbar-dark shadow">
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark shadow" style="background-color: black;">
         <div>
-            <a class="navbar-brand" href="~/Home/Index">BANDdrop</a>
+            <a class="navbar-brand" href="~/Home/Index">
+                <img src="~/Images/whiteLogo.png" alt="logo" class="navImage"/>
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -22,13 +24,7 @@
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                     <span class="sr-only">(current)</span>
                 </li>
-                @if (User.IsInRole("Musician"))
-                {
-                    <li class="nav-item active">
-                        @Html.ActionLink("Upload Files", "UploadAudio", "AudioFiles", null, new { @class = "nav-link" })
-                        <span class="sr-only">(current)</span>
-                    </li>
-                }
+            
 
             </ul>
         </div>
@@ -41,7 +37,7 @@
 
     </div>
     
-        <div class="container body-content">
+        <div class="container body-content shadow mb-1" style="padding-top: 60px;">
             @RenderBody()
             <hr />
             <footer>

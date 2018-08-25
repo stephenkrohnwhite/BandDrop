@@ -2,20 +2,28 @@
 @{
     ViewBag.Title = "CreateOrJoin";
 }
+<div class="row position-relative pl-2 pr-2">
+    <div class="col-md-12">
+        <img src="~/Images/headphones.jpg" alt="headphones" class="homeLayoutImg rounded shadow" />
+        <div class="pt-2 pl-4 homeLayoutHeader"> BANDdrop </div>
+    </div>
 
-<div class="row mh-100">
-    <div class="col-md-6">
-        <div class="card text-white bg-primary mt-5"
-             style="max-width: 20rem;">
-            <h5 class="card-header">Create New Group</h5>
-            @Html.ActionLink("Create New Band","Create","Bands", null, new { @class = "btn btn-primary btn-large"})
+</div>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-4 pl-4 pr-4 pb-4">
+        <div class="card rounded shadow bg-dark text-white h-100">
+            <div class="cardHead">Create New Group</div>
+            @Html.ActionLink("Create", "Create", "Bands", null, new { @class = "btn btn-dark btn-large" })
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card text-white bg-primary mt-5"
-             style="max-width: 20rem;">
-            <h5 class="card-header">Join Existing Group</h5>
-            @Html.ActionLink("Join Existing Band", "Join", "Bands", null, new { @class = "btn btn-primary btn-large" })
+    <div class="col-md-4 pl-4 pr-4 pb-4">
+        <div class="card rounded shadow bg-dark text-white h-100">
+            <div class="cardHead">Join Existing Group</div>
+            @Html.ActionLink("Join", "Join", "Bands", null, new { @class = "btn btn-dark btn-large" })
         </div>
+    </div>
+    <div class="col-md-2">
     </div>
 </div>

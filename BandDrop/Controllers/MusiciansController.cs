@@ -61,7 +61,7 @@ namespace BandDrop.Controllers
                 musician.UserId = userId;
                 db.Musicians.Add(musician);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Chat", "Chat");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.BandId = new SelectList(db.Bands, "Id", "BandName", musician.BandId);
