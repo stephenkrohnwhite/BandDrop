@@ -12,10 +12,10 @@
             let conversationChannelName = null;
             let newMessageTpl =
                 `<li class="list-group-item">
-                  <div id="msg-{{id}}" class="row __chat__par__ ">
+                  <div id="msg-{{id}}" class="row __chat__par__ mw-100 ">
                     <div class="__chat__">
                      <h6>{{name}}</h6>
-                     <p class="pl-4">{{body}}</p>
+                     <p>{{body}}</p>
                     </div>
                  </div>
                 </li>`;
@@ -228,25 +228,25 @@
 <body>
 
     <div class="container p-0 pt-4">
-        <div class="row mw-100">
+        <div class="row w-100" >
 
-            <div class="col-md-3 h-100 p-6" >
+            <div class="col-md-2 mw-100 h-100 p-0" >
                 <aside class="main visible-md visible-lg h-100 shadow">
                     @*<div class="row pr-2" style="height: 100%">*@
-                    <div class="panel w-100 h-100 rounded bg-light">
+                    <div class="panel rounded bg-light">
                         
-                        <div class="panel panel-default users__bar">
+                        <div class="panel panel-default users__bar" style="height: 60vh; overflow: auto;">
                             <div class="panel-heading users__heading bg-dark mb-2 shadow">
                                 @ViewBag.currentUser.BandName
                             </div>
                             <div class="bandImage">
                             @if(ViewBag.Band.BandImagePath != null)
                             {
-                            <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="card-img-top" />
+                            <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="card-img-top shadow rounded" />
                             }
                             <div class="p-1">
                                 <button class="btn btn-dark mw-100 shadow" id="openModal">Select Band Image</button>
-                                <div id="modalSelect" class="modal bg-transparent">
+                                <div id="modalSelect" class="modal">
                                     <div class="modal-content">
                                         <span class="close">&times;</span>
                                          @using (Html.BeginForm("SetBandImage", "Bands", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -256,10 +256,10 @@
                                                 @Html.LabelFor(a => a.File, "Select image", htmlAttributes: new { @class = "control-label w-100 pl-3" })
                                             </div>
                                             <div class="col-md-2">
-                                                @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file", @class = "btn-outline-primary" })
+                                                @Html.TextBoxFor(a => a.File, "Image", new { type = "file", @class = "btn-outline-primary" })
                                             </div>
                                             <div class="input-group-append pl-3">
-                                                <input type="submit" id="btnUpload" class="btn btn-outline-primary" value="Upload" />
+                                                <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
                                             </div>
                                         </div>
                                             }
@@ -291,13 +291,13 @@
                     @*</div>*@
                 </aside>
             </div>
-            <div id="chat_window"  class="col-md-4 mw-100 chat__body p-5 shadow bg-light position-relative" style="overflow-y: scroll; height: 70vh;">
-                <div class="card-group small-shadow rounded  pb-2">
-                    <ul class="chat__main list-group-flush w-100"></ul>
+            <div id="chat_window"  class="col-md-5 mw-100 chat__body shadow bg-light position-relative" style="overflow-y: scroll; height: 70vh;">
+                <div class="small-shadow rounded  pb-2">
+                    <ul class="chat__main list-group-flush"></ul>
                 </div>
                 <div class="chat__type__body fixed-bottom align-bottom">
                     <div class="chat__type ">
-                        <textarea class="pb-2" id="msg_box" placeholder="Type your message"></textarea>
+                        <textarea  id="msg_box" placeholder="Type your message"></textarea>
                         <button class="btn btn-dark" id="sendMessage">Send</button>
                     </div>
                 </div>
@@ -305,11 +305,11 @@
                     <span id="typerDisplay"></span>
                 </div>
             </div>
-            <div class="col-md-4 mw-100 mh-80 shadow ml-4 p-0 bg-light flex-wrap" style="overflow-y: scroll; ;height: 60vh;">
+            <div class="col-md-5 p-0  mw-100 mh-80 shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
                
                     <table id="dataTable" class="table table-light bg-wizardry w-100">
 
-                        <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
+                        <thead class="thead-dark position-static w-100 tableHead shadow mb-4 font-weight-light">
                             <tr>
                                 <th style="font-weight: normal;">Name</th>
                                 <th style="font-weight: normal;">Play Audio</th>

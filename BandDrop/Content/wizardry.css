@@ -526,25 +526,25 @@ pre {
 
 @media (min-width:576px) {
     .container {
-        max-width: 100%;
+        max-width: 580px;
     }
 }
 
 @media (min-width:768px) {
     .container {
-        max-width: 100%;
+        max-width: 780px;
     }
 }
 
 @media (min-width:992px) {
     .container {
-        max-width: 90%;
+        max-width:1030px;
     }
 }
 
 @media (min-width:1200px) {
     .container {
-        max-width: 90%;
+        max-width: 1280px;
     }
 }
 
