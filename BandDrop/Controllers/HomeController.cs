@@ -15,11 +15,11 @@ namespace BandDrop.Controllers
         {
             string userId = User.Identity.GetUserId();
             var musician = db.Musicians.Where(m => m.UserId == userId).SingleOrDefault();
-            if (User.IsInRole("Musician") && musician.BandId != null)
+            if (userId != null && musician.BandId != null)
             {
                 return RedirectToAction("Index","Chat");
             }
-            if(User.IsInRole("Musician") && musician.BandId == null)
+            if(userId != null && musician.BandId == null)
             {
                 return View("CreateOrJoin");
             }

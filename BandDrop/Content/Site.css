@@ -1,5 +1,5 @@
 ﻿body {
-    background-color: #DDDDDD;
+    background-color: #6B5B95;
 }
 .chat {
     list-style: none;
@@ -346,4 +346,10 @@ audio {
    display: block;
    margin-left: auto;
    margin-right: auto;
+}
+.chatContent{
+    max-width: 80%;
+    height: 60vh;
+    padding: 0px;
+    margin: 0px 8px 8px 8px;
 }

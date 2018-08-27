@@ -104,9 +104,12 @@
                     });
                 }
             });
-
+            $('#groupChat').click(function () {
+                bind_group_events();
+            });
             // get chat data
             function getChat(contact_id) {
+                $('.chat__main').empty();
                 var link = '@Url.Action("Conversations", "Chat")/';
                 var object = new Object();
                 object.id = contact_id
@@ -226,72 +229,65 @@
     </script>
 </head>
 <body>
-
     <div class="container p-0 pt-4">
-        <div class="row w-100" >
-
-            <div class="col-md-2 mw-100 h-100 p-0" >
+        <div class="row pl-5" >
+            <div class="col-md-2 chatContent" >
                 <aside class="main visible-md visible-lg h-100 shadow">
-                    @*<div class="row pr-2" style="height: 100%">*@
                     <div class="panel rounded bg-light">
-                        
                         <div class="panel panel-default users__bar" style="height: 60vh; overflow: auto;">
                             <div class="panel-heading users__heading bg-dark mb-2 shadow">
                                 @ViewBag.currentUser.BandName
                             </div>
                             <div class="bandImage">
-                            @if(ViewBag.Band.BandImagePath != null)
-                            {
-                            <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="card-img-top shadow rounded" />
-                            }
-                            <div class="p-1">
-                                <button class="btn btn-dark mw-100 shadow" id="openModal">Select Band Image</button>
-                                <div id="modalSelect" class="modal">
-                                    <div class="modal-content">
-                                        <span class="close">&times;</span>
-                                         @using (Html.BeginForm("SetBandImage", "Bands", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                           {
-                                        <div class="form-group">
-                                            <div class="custom-file panel-text">
-                                                @Html.LabelFor(a => a.File, "Select image", htmlAttributes: new { @class = "control-label w-100 pl-3" })
-                                            </div>
-                                            <div class="col-md-2">
-                                                @Html.TextBoxFor(a => a.File, "Image", new { type = "file", @class = "btn-outline-primary" })
-                                            </div>
-                                            <div class="input-group-append pl-3">
-                                                <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
-                                            </div>
+                                @if (ViewBag.Band.BandImagePath != null)
+                                 {
+                                    <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="card-img-top shadow rounded" />
+                                 }
+                                <div class="p-3">
+                                    <button class="btn btn-dark mw-100 shadow" id="openModal">Select Band Image</button>
+                                    <div id="modalSelect" class="modal">
+                                        <div class="modal-content">
+                                            <span class="close">&times;</span>
+                                            @using (Html.BeginForm("SetBandImage", "Bands", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            {
+                                                <div class="form-group">
+                                                    <div class="custom-file panel-text">
+                                                        @Html.LabelFor(a => a.File, "Select image", htmlAttributes: new { @class = "control-label w-100 pl-3" })
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.TextBoxFor(a => a.File, "Image", new { type = "file", @class = "btn-outline-primary" })
+                                                    </div>
+                                                    <div class="input-group-append pl-3">
+                                                        <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
+                                                    </div>
+                                                </div>
+                                               }
                                         </div>
-                                            }
-                                          </div>
+                                    </div>
                                 </div>
                             </div>
-                            
-                        </div>
+                            <button class="btn btn-dark rounded shadow ml-3" id="groupChat">Group Chat</button>
                             <div class="__no__chat__">
                                 <p class="text-primary pl-2 pt-1">Select bandmate</p>
                             </div>
-                            <a class="users__body tableText">
-                                <ul id="contacts" class="mh-80 mt-2">
+                            <a class="panel-body users__body tableText">
+                                <ul id="contacts" class="list-group pl-2 mh-80 mt-2">
                                     @foreach (var user in @ViewBag.allUsers)
-                                    {
+                                     {
                                         <a class="user__item contact-@user.id" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
                                             <li>
                                                 <span class="text-center text-dark pt-2">@user.name</span>
                                                 <div class="status-bar"></div>
                                             </li>
                                         </a>
-                                    }
+                                     }
                                 </ul>
                             </a>
-                            
                         </div>
-                        
-                    </div>
-                    @*</div>*@
+                     </div>
                 </aside>
             </div>
-            <div id="chat_window"  class="col-md-5 mw-100 chat__body shadow bg-light position-relative" style="overflow-y: scroll; height: 70vh;">
+            <div id="chat_window"  class="col-md-4 chatContent chat__body shadow bg-light position-relative" style="overflow-y: scroll; height: 70vh;">
                 <div class="small-shadow rounded  pb-2">
                     <ul class="chat__main list-group-flush"></ul>
                 </div>
@@ -305,63 +301,56 @@
                     <span id="typerDisplay"></span>
                 </div>
             </div>
-            <div class="col-md-5 p-0  mw-100 mh-80 shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
+            <div class="col-md-5 chatContent shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
                
-                    <table id="dataTable" class="table table-light bg-wizardry w-100">
-
-                        <thead class="thead-dark position-static w-100 tableHead shadow mb-4 font-weight-light">
+                    <table id="dataTable" class="table table-light bg-wizardry">
+                        <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
                             <tr>
                                 <th style="font-weight: normal;">Name</th>
                                 <th style="font-weight: normal;">Play Audio</th>
                             </tr>
                         </thead>
-                
                     <tbody>
                         @foreach (var item in ViewBag.Songs)
-        {
-                <tr>
-                    <td class="tableText align-content-between">@item.Name</td>
-                    <td>
-                        <audio controls>
-                            <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
-                        </audio>
-                    </td>
-                </tr>
-}
-                    </tbody>
-                </table>
-                    <div class="panel   position-absolute">
-                        @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-
-                <div class="form-group">
-                    <div class="custom-file panel-text">
-                        @Html.LabelFor(a => a.File, "Select track to upload:", htmlAttributes: new { @class = "control-label w-100 pl-3" })
+                        {
+                            <tr>
+                                <td class="tableText align-content-between">@item.Name</td>
+                                <td>
+                                    <audio controls>
+                                        <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
+                                    </audio>
+                                </td>
+                            </tr>
+                         }
+                       </tbody>
+                     </table>
+                     <div class="panel   position-absolute">
+                           @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                            <div class="form-group">
+                                <div class="custom-file panel-text">
+                                    @Html.LabelFor(a => a.File, "Select track to upload:", htmlAttributes: new { @class = "control-label w-100 pl-3" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file"})
+                                </div>
+                                <div class="form-group pl-3 pr-3">
+                                    @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control  w-100" } })
+                                        @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="input-group-append pl-3">
+                                    <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
+                                </div>
+                            </div>
+                            }
                     </div>
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file"})
-                    </div>
-                    <div class="form-group pl-3 pr-3">
-                        @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label" })
-                        <div>
-                            @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control  w-100" } })
-                            @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="input-group-append pl-3">
-                        <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
-                    </div>
-
-                </div>
-}
-                    </div>
-
             </div>
-
         </div>
     </div>
     <script>
-        
             function scrollToBottom(id) {
                $('#'+id).scrollTop($('#'+id)[0].scrollHeight);
             }
@@ -374,30 +363,21 @@
             .on("mouseleave", function () {
                 $("button").hide();
             });
-        // Get the modal
+
         var modal = document.getElementById('modalSelect');
-
-        // Get the button that opens the modal
         var btn = document.getElementById("openModal");
-
-        // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
         btn.onclick = function () {
             modal.style.display = "block";
         }
-
-        // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
         }
-
-        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        }
-        
+        }    
     </script>
 </body>
 </html>
