@@ -516,3 +516,12 @@ audio {
     margin: 0 0 10px 0;
     color: black;
 }
+.audiojs {
+    width: 100%;
+    padding: 2px 0px 2px 0px;
+    margin: 0px 0px 0px 0px;
+}
+    .audiojs .scrubber {
+        width: 40%;
+        background-color: #BD3D3A;
+    }

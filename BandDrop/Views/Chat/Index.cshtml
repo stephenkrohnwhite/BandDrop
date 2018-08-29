@@ -5,7 +5,8 @@
     <title>pChat &mdash; Private Chatroom</title>
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
-    
+    <script src="@Url.Content("~/Scripts/audio/audiojs/audio.min.js")"></script>
+
     <script>
         $(document).ready(function () {
             let currentContact = null; // Holds current contact
@@ -305,37 +306,21 @@
                 </div>
             </div>
             <div class="col-md-5 chatContent shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
-                <table id="dataTable" class="table table-light bg-wizardry">
+                <table id="dataTable" class="table table-striped">
                     <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
                         <tr>
-                            <th style="font-weight: normal;">Name</th>
-                            <th style="font-weight: normal;">Play Audio</th>
+                            @*<th style="font-weight: normal;">Name</th>
+                            <th style="font-weight: normal;">Play Audio</th>*@
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in ViewBag.Songs)
-                        {
+                        { 
                             <tr>
-                                <td>
-                                    <div class="cont">
-                                        <h3>@item.Name</h3>
-                                    </div>
-                                    
-                                    <div class="mejs-container svg audio mejs-audio"></div>
-                                    <div class="mejs-mediaelement">
-                                        <audio class ="audio" src="@Url.Content(@item.FilePath)" type="audio/ogg" controls="controls"></audio>
-                                    </div>
-                                    <div class="mejs-controls">
-                                        <div class="mejs-button mejs-playpause-button" mejs-play></div>
-                                    </div>
-                                    
+                                <td class="pt-0 pb-0">
+                                    <audio source src="@Url.Content(@item.FilePath)" preload="auto" style="width: 300px;"></audio>
+                                    <p class="small ml-2 mb-0 pb-1">@item.Name</p>
                                 </td>
-                                @*<td class="tableText">@item.Name</td>
-                                    <td>
-                                        <audio controls class="controls">
-                                            <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
-                                        </audio>
-                                    </td>*@
                             </tr>
                         }
                     </tbody>
@@ -395,11 +380,10 @@
             }
         }
 
-        $(function () {
-            $('#audio').mediaelementplayer({
-                features: ['playpause', 'progress', 'current', 'tracks', 'fullscreen']
+            audiojs.events.ready(function () {
+                var as = audiojs.createAll();
             });
-        });
+
     </script>
     <script src="@Url.Content("~/Scripts/mediaelement/mediaelement-and-player.min.js")"></script>
 </body>
