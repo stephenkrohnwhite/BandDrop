@@ -136,22 +136,26 @@
     /*background-color: #f2f2f2;*/
     /*height: 600px;*/
     max-height: 60vh;
-    width: 100%;
+    width: 95%;
 }
 
     .chat__body .chat__main .__chat__ {
-        padding: 8px 8px 8px 8px;
+        padding: 8px 8px 0px 8px;
         border-radius: 4px;
-        margin: 4px 4px 4px 4px;
-        width: 90%;
-        position:center;
+        margin: 4px 4px 2px 4px;
+        width: 70%;
         box-shadow: inherit;
-        
         -webkit-box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)
     }
+        .chat__body .chat__main .__chat__ h6 {
+            top: 0;
+            padding: 20px 1px 20px 0px;
+        }
 
         .chat__body .chat__main .__chat__ p {
             font-weight: 400;
+            padding: 4px 0px 4px 3px;
+            margin-bottom: 1px;
         }
 
             .chat__body .chat__main .__chat__ p.delivery-status {
@@ -163,19 +167,21 @@
             }
 
         .chat__body .chat__main .__chat__.from__chat {
+            margin-left: 4rem;
             background-color: white;
             text-shadow: 0 .1rem rgba(0,0,0,.15);
+            border-radius: 25px 25px 8px 25px;
+            margin-bottom: .75rem;
         }
-    .chat__body .chat__main .chat__.from__chat .h6 {
-        color: darkslategray;
-        text-shadow: 0 .15rem rgba(0,0,0,.15);
-    }
 
-    .chat__body .chat__main .__chat__.receive__chat {
-        background-color: #4d9aff;
-        float: right;
-        color: azure;
-    }
+
+        .chat__body .chat__main .__chat__.receive__chat {
+            background-color: #4d9aff;
+            float: right;
+            color: azure;
+            border-radius: 25px 25px 25px 8px;
+            margin-bottom: .75rem;
+        }
 
     .chat__body .chat__type__body {
         vertical-align: bottom;
@@ -281,6 +287,7 @@
     position: relative;
 }
 audio {
+    display: flex;
     -webkit-transition: all 0.5s linear;
     -moz-transition: all 0.5s linear;
     -o-transition: all 0.5s linear;
@@ -292,10 +299,10 @@ audio {
     -webkit-border-radius: 7px 7px 7px 7px;
     border-radius: 7px 7px 7px 7px;
     text-shadow: 0 .2rem rgba(0,0,0,.15);
-    background-color: darkslategray;
-    background: #4c4e5a;
+    background: transparent;
     -webkit-tap-highlight-color:black;
 }
+
 .tableText {
     text-shadow: 0 .1rem rgba(0,0,0,.15);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -352,4 +359,160 @@ audio {
     height: 60vh;
     padding: 0px;
     margin: 0px 8px 8px 8px;
+}
+/*input[type="file" i] {
+    align-items: baseline;
+    color: inherit;
+    text-align: start !important;
+    background-color: black;
+    color: white;
+}*/
+.mejs-container .mejs-controls {
+    height: 100%;
+    background: transparent;
+    display: flex;
+}
+
+.mejs-controls .mejs-time-rail span,
+.mejs-controls .mejs-time-rail a {
+    display: block;
+    width: 180px;
+    height: 100%;
+    border-radius: 0px;
+    cursor: pointer;
+}
+
+.mejs-controls div.mejs-time-rail {
+    padding-top: initial;
+    height: 100%;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-total {
+    margin: 0
+}
+
+.mejs-container .mejs-controls .mejs-time {
+    color: #fff;
+    display: block;
+    height: 27px;
+    width: auto;
+    padding: 0;
+    line-height: 25px;
+    overflow: hidden;
+    text-align: center;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.mejs-container .mejs-controls .mejs-time {
+    position: absolute;
+    color: rgba(256, 256, 256, 0.3);
+    right: 10px;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    font-family: 'Lato';
+    font-size: 32px;
+    pointer-events: none;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-float-corner {
+    display: none;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-float {
+    position: absolute;
+    background: #000;
+    width: 46px;
+    height: 20px;
+    border: none;
+    top: -25px;
+    margin-left: -18px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-float-current {
+    margin: 0;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    left: 0;
+}
+
+.mejs-container .mejs-controls div {
+    height: 100%;
+    width: 50px;
+    position: relative;
+}
+
+.mejs-controls .mejs-button button {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 0 !important;
+    background: transparent;
+    outline: none;
+}
+
+.mejs-controls .mejs-play:after {
+    position: absolute;
+    content: "";
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/play.svg) no-repeat;
+    width: 17px;
+    height: 22px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    transition: all 100ms linear;
+    pointer-events: none;
+}
+
+.mejs-controls .mejs-pause:after {
+    position: absolute;
+    content: "";
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/163884/pause.svg) no-repeat;
+    width: 13px;
+    height: 22px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    transition: all 100ms linear;
+    pointer-events: none;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-total {
+    background: #292929;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-loaded {
+    background: #3c3838;
+    background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+    background-image: -moz-linear-gradient( -45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+    background-size: 50px 50px;
+    animation: move 3s linear infinite;
+    opacity: 0.1;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-current {
+    background: linear-gradient(to right, #03A9F4, #ff00ff);
+}
+
+.mejs-controls .mejs-button button:focus {
+    outline: none;
+}
+.cont h3 {
+    font-family: 'Lato';
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: black;
 }

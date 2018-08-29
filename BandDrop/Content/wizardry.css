@@ -2990,7 +2990,11 @@ a.btn.disabled, fieldset:disabled a.btn {
             -webkit-box-shadow: 0 0 0 .2rem rgba(214,220,230,.5);
             box-shadow: 0 0 0 .2rem rgba(214,220,230,.5)
         }
-
+.btn-crimson {
+    color: #fff;
+    background-color: #BD3D3A;
+    text-shadow: 0 .1rem #212529;
+}
 .btn-dark {
     color: #fff;
     background-color: #22232d;

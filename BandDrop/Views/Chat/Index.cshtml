@@ -5,6 +5,7 @@
     <title>pChat &mdash; Private Chatroom</title>
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
+    
     <script>
         $(document).ready(function () {
             let currentContact = null; // Holds current contact
@@ -12,9 +13,9 @@
             let conversationChannelName = null;
             let newMessageTpl =
                 `<li class="list-group-item">
-                  <div id="msg-{{id}}" class="row __chat__par__ mw-100 ">
+                  <div id="msg-{{id}}" class="row __chat__par__ ">
                     <div class="__chat__">
-                     <h6>{{name}}</h6>
+                    <h6 class="pb-0 mr-4 ml-4 pt-0 mt-0">{{name}}</h6>
                      <p>{{body}}</p>
                     </div>
                  </div>
@@ -43,7 +44,7 @@
             var bandId = '@ViewBag.Band.Id'
             currentconversationChannel = pusher.subscribe('private-chat-' + bandId + '537')
             bind_group_events();
-         
+
             $(".user__item").click(function (e) {
                 e.preventDefault();
                 currentContact = {
@@ -80,7 +81,7 @@
             $('#sendMessage').on('click', function () {
                 var object = new Object();
                 if (currentContact == null) {
-                    
+
                     $.post('@Url.Action("SendGroupMessage","Chat")', {
                         message: $('#msg_box').val(),
                         socket_id: socketId,
@@ -130,10 +131,10 @@
                 }
                 scrollToBottom("chat_window");
             }
-            
+
             //load chat data into view
             function loadChat(chat_data) {
-               
+
                 chat_data.forEach(function (data) {
 
                     displayMessage(data);
@@ -225,14 +226,14 @@
 
             $('#msg_box').on('keyup', isTypingCallback);
 
-        });  
-        
+        });
+
     </script>
 </head>
 <body>
     <div class="container p-0 pt-4">
-        <div class="row pl-5" >
-            <div class="col-md-2 chatContent" >
+        <div class="row pl-5">
+            <div class="col-md-2 chatContent">
                 <aside class="main visible-md visible-lg h-100 shadow">
                     <div class="panel rounded bg-light">
                         <div class="panel panel-default users__bar" style="height: 60vh; overflow: auto;">
@@ -241,11 +242,11 @@
                             </div>
                             <div class="bandImage">
                                 @if (ViewBag.Band.BandImagePath != null)
-                                 {
+                                {
                                     <img src=@Url.Content(ViewBag.Band.BandImagePath) alt="bandImage" class="card-img-top shadow rounded" />
-                                 }
+                                }
                                 <div class="p-3">
-                                    <button class="btn btn-dark mw-100 shadow" id="openModal">Select Band Image</button>
+                                    <button class="btn btn-crimson mw-100 shadow" id="openModal">Select Band Image</button>
                                     <div id="modalSelect" class="modal">
                                         <div class="modal-content">
                                             <span class="close">&times;</span>
@@ -262,101 +263,115 @@
                                                         <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
                                                     </div>
                                                 </div>
-                                               }
+                                            }
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-dark rounded shadow ml-3" id="groupChat">Group Chat</button>
+                            <button class="btn btn-crimson rounded shadow ml-3" id="groupChat">Group Chat</button>
                             <div class="__no__chat__">
                                 <p class="text-primary pl-2 pt-1">Select bandmate</p>
                             </div>
                             <a class="panel-body users__body tableText">
                                 <ul id="contacts" class="list-group pl-2 mh-80 mt-2">
                                     @foreach (var user in @ViewBag.allUsers)
-                                     {
+                                    {
                                         <a class="user__item contact-@user.id" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
                                             <li>
                                                 <span class="text-center text-dark pt-2">@user.name</span>
                                                 <div class="status-bar"></div>
                                             </li>
                                         </a>
-                                     }
+                                    }
                                 </ul>
                             </a>
                         </div>
-                     </div>
+                    </div>
                 </aside>
             </div>
-            <div id="chat_window"  class="col-md-4 chatContent chat__body shadow bg-light position-relative" style="overflow-y: scroll; height: 70vh;">
-                <div class="small-shadow rounded  pb-2">
+            <div id="chat_window" class="col-md-4 chatContent chat__body shadow bg-light position-relative" style="overflow-y: scroll; overflow-x: hidden; height: 70vh;">
+                <div class="small-shadow rounded" style="height: 92%;">
                     <ul class="chat__main list-group-flush"></ul>
                 </div>
-                <div class="chat__type__body fixed-bottom align-bottom">
+                <div class="chat__type__body fixed-bottom shadow rounded align-bottom">
                     <div class="chat__type ">
-                        <textarea  id="msg_box" placeholder="Type your message"></textarea>
-                        <button class="btn btn-dark" id="sendMessage">Send</button>
+                        <textarea id="msg_box" placeholder="Type your message"></textarea>
+                        <button class="btn btn-primary" id="sendMessage">Send</button>
                     </div>
                 </div>
+
                 <div class="chat__typing">
                     <span id="typerDisplay"></span>
                 </div>
             </div>
             <div class="col-md-5 chatContent shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
-               
-                    <table id="dataTable" class="table table-light bg-wizardry">
-                        <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
-                            <tr>
-                                <th style="font-weight: normal;">Name</th>
-                                <th style="font-weight: normal;">Play Audio</th>
-                            </tr>
-                        </thead>
+                <table id="dataTable" class="table table-light bg-wizardry">
+                    <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
+                        <tr>
+                            <th style="font-weight: normal;">Name</th>
+                            <th style="font-weight: normal;">Play Audio</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in ViewBag.Songs)
                         {
                             <tr>
-                                <td class="tableText align-content-between">@item.Name</td>
                                 <td>
-                                    <audio controls>
-                                        <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
-                                    </audio>
-                                </td>
-                            </tr>
-                         }
-                       </tbody>
-                     </table>
-                     <div class="panel   position-absolute">
-                           @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                            <div class="form-group">
-                                <div class="custom-file panel-text">
-                                    @Html.LabelFor(a => a.File, "Select track to upload:", htmlAttributes: new { @class = "control-label w-100 pl-3" })
-                                </div>
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file"})
-                                </div>
-                                <div class="form-group pl-3 pr-3">
-                                    @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label" })
-                                    <div>
-                                        @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control  w-100" } })
-                                        @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
+                                    <div class="cont">
+                                        <h3>@item.Name</h3>
                                     </div>
-                                </div>
-                                <div class="input-group-append pl-3">
-                                    <input type="submit" id="btnUpload" class="btn btn-dark" value="Upload" />
+                                    
+                                    <div class="mejs-container svg audio mejs-audio"></div>
+                                    <div class="mejs-mediaelement">
+                                        <audio class ="audio" src="@Url.Content(@item.FilePath)" type="audio/ogg" controls="controls"></audio>
+                                    </div>
+                                    <div class="mejs-controls">
+                                        <div class="mejs-button mejs-playpause-button" mejs-play></div>
+                                    </div>
+                                    
+                                </td>
+                                @*<td class="tableText">@item.Name</td>
+                                    <td>
+                                        <audio controls class="controls">
+                                            <source src="@Url.Content(@item.FilePath)" type="audio/ogg">
+                                        </audio>
+                                    </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="panel  position-absolute">
+                    @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <div class="custom-file panel-text">
+                                @Html.LabelFor(a => a.File, "Select track to upload:", htmlAttributes: new { @class = "control-label w-100 pl-3" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(a => a.File, "Select Track", new { type = "file" })
+                            </div>
+                            <div class="form-group pl-3 pr-3">
+                                @Html.LabelFor(a => a.Name, htmlAttributes: new { @class = "control-label" })
+                                <div>
+                                    @Html.EditorFor(a => a.Name, new { htmlAttributes = new { @class = "form-control  w-100" } })
+                                    @Html.ValidationMessageFor(a => a.Name, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            }
-                    </div>
+                            <div class="input-group-append pl-3">
+                                <input type="submit" id="btnUpload" class="btn btn-crimson shadow" value="Upload" />
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
     <script>
-            function scrollToBottom(id) {
-               $('#'+id).scrollTop($('#'+id)[0].scrollHeight);
-            }
-            scrollToBottom("chat_window");
-        
+        function scrollToBottom(id) {
+            $('#' + id).scrollTop($('#' + id)[0].scrollHeight);
+        }
+        scrollToBottom("chat_window");
+
         $(".openModalHidden")
             .on("mouseenter", function () {
                 $("openModaHidden").show();
@@ -378,8 +393,15 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        }    
+        }
+
+        $(function () {
+            $('#audio').mediaelementplayer({
+                features: ['playpause', 'progress', 'current', 'tracks', 'fullscreen']
+            });
+        });
     </script>
+    <script src="@Url.Content("~/Scripts/mediaelement/mediaelement-and-player.min.js")"></script>
 </body>
 </html>
 
