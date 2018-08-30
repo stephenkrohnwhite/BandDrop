@@ -43,11 +43,15 @@
                 pusher.unsubscribe(conversationChannelName);
             }
             var bandId = '@ViewBag.Band.Id'
-            currentconversationChannel = pusher.subscribe('private-chat-' + bandId + '537')
+            currentconversationChannel = pusher.subscribe('private-chat-' + bandId + '537');
             bind_group_events();
 
             $(".user__item").click(function (e) {
                 e.preventDefault();
+                function scrollToBottom(id) {
+                    $('#' + id).scrollTop($('#' + id)[0].scrollHeight);
+                }
+                scrollToBottom("chat_window");
                 currentContact = {
                     id: $(this).data('contact-id'),
                     name: $(this).data('contact-name'),
@@ -91,6 +95,7 @@
                         //display the message immediately on the view of the sender
                         displayMessage(data);
                         $('#msg_box').val('');
+                        bind_group_events;
                     });
                 }
                 else {
@@ -109,6 +114,10 @@
             $('#groupChat').click(function () {
                 $('.chat__main').empty();
                 bind_group_events();
+                function scrollToBottom(id) {
+                    $('#' + id).scrollTop($('#' + id)[0].scrollHeight);
+                }
+                scrollToBottom("chat_window");
             });
             // get chat data
             function getChat(contact_id) {
@@ -200,7 +209,7 @@
             function bind_group_events() {
                 getGroupChat(0);
                 currentconversationChannel.bind("new_message", function (msg) {
-                    if (msg.receiver_id == 0 ) {
+                    if (msg.receiver_id == @ViewBag.ChatChannel ) {
                         displayMessage(msg);
                     }
                 });
@@ -291,10 +300,10 @@
                 </aside>
             </div>
             <div id="chat_window" class="col-md-4 chatContent chat__body shadow bg-light position-relative" style="overflow-y: scroll; overflow-x: hidden; height: 70vh;">
-                <div class="small-shadow rounded" style="height: 92%;">
+                <div class="small-shadow rounded">
                     <ul class="chat__main list-group-flush"></ul>
                 </div>
-                <div class="chat__type__body fixed-bottom shadow rounded align-bottom">
+                <div class="chat__type__body shadow rounded">
                     <div class="chat__type ">
                         <textarea id="msg_box" placeholder="Type your message"></textarea>
                         <button class="btn btn-primary" id="sendMessage">Send</button>

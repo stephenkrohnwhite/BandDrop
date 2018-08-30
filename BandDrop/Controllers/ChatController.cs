@@ -30,21 +30,21 @@ namespace BandDrop.Controllers
 
         public ActionResult Index()
           {
-              ApplicationDbContext db = new ApplicationDbContext();
-              string userId = User.Identity.GetUserId();
-              if(userId == null)
-              {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string userId = User.Identity.GetUserId();
+            var currentUser = db.Musicians.FirstOrDefault(u => u.UserId == userId);
+            if(currentUser.Band == null)
+            {
                 RedirectToAction("Index","Home");
-              }
-              var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
-
-              ViewBag.allUsers = db.Musicians.Where(m => m.name != currentUser.name).Where(m => m.BandId == currentUser.BandId)
-                                     .ToList();
-              ViewBag.currentUser = currentUser;
-              List<AudioFile> tracks = db.AudioFiles.Where(t => t.BandId == currentUser.BandId).ToList();
-              ViewBag.Songs = tracks;
+            }
+            ViewBag.allUsers = db.Musicians.Where(m => m.name != currentUser.name).Where(m => m.BandId == currentUser.BandId)
+                                    .ToList();
+            ViewBag.currentUser = currentUser;
+            List<AudioFile> tracks = db.AudioFiles.Where(t => t.BandId == currentUser.BandId).ToList();
+            ViewBag.Songs = tracks;
             var band = db.Bands.Where(b => b.Id == currentUser.BandId).First();
             ViewBag.Band = band;
+            ViewBag.ChatChannel = band.Id + 587;
             return View();
           }
         [HttpGet]
