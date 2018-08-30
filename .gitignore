@@ -1,2 +1,5 @@
 # Ignore folder named 'BandDrop/AudioFileUpload'
 BandDrop/AudioFileUpload/
+
+# Ignore folder named 'BandDrop/Utils'
+BandDrop/Utils/
