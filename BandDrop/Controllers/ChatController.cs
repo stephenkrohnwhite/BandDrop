@@ -32,6 +32,10 @@ namespace BandDrop.Controllers
           {
               ApplicationDbContext db = new ApplicationDbContext();
               string userId = User.Identity.GetUserId();
+              if(userId == null)
+              {
+                RedirectToAction("Index","Home");
+              }
               var currentUser = db.Musicians.Where(u => u.UserId == userId).First();
 
               ViewBag.allUsers = db.Musicians.Where(m => m.name != currentUser.name).Where(m => m.BandId == currentUser.BandId)

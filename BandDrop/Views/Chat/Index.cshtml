@@ -271,10 +271,10 @@
                             </div>
                             <button class="btn btn-crimson rounded shadow ml-3" id="groupChat">Group Chat</button>
                             <div class="__no__chat__">
-                                <p class="text-primary pl-2 pt-1">Select bandmate</p>
+                                <p class="text-primary pl-2 ml-1 pt-1">Select bandmate</p>
                             </div>
                             <a class="panel-body users__body tableText">
-                                <ul id="contacts" class="list-group pl-2 mh-80 mt-2">
+                                <ul id="contacts" class="list-group pl-4 mh-80 mt-2">
                                     @foreach (var user in @ViewBag.allUsers)
                                     {
                                         <a class="user__item contact-@user.id" href="#" data-contact-id="@user.id" data-contact-name="@user.name">
@@ -306,8 +306,9 @@
                 </div>
             </div>
             <div class="col-md-5 chatContent shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
-                <table id="dataTable" class="table table-striped">
-                    <thead class="thead-dark position-static tableHead shadow mb-4 font-weight-light">
+                <div class="audioTable">
+                    <table id="dataTable" class="table">
+                    <thead class="thead-dark position-static tableHead border shadow mb-4 font-weight-light">
                         <tr>
                             @*<th style="font-weight: normal;">Name</th>
                             <th style="font-weight: normal;">Play Audio</th>*@
@@ -317,15 +318,20 @@
                         @foreach (var item in ViewBag.Songs)
                         { 
                             <tr>
-                                <td class="pt-0 pb-0">
-                                    <audio source src="@Url.Content(@item.FilePath)" preload="auto" style="width: 300px;"></audio>
-                                    <p class="small ml-2 mb-0 pb-1">@item.Name</p>
+                                <td class="pb-0 pt-0" style="margin-bottom: -2px; border: 0px;">
+                                    <div class="audioTrack">
+                                        <audio source src="@Url.Content(@item.FilePath)" preload="auto" style="width: 300px;"></audio>
+                                        <p class="ml-3 mb-0 pb-2">@item.Name - @ViewBag.Band.BandName</p>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-                <div class="panel  position-absolute">
+                </div>
+                
+                <div class="panel align-bottom">
                     @using (Html.BeginForm("UploadAudio", "AudioFiles", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <div class="form-group">
