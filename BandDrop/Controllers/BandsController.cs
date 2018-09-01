@@ -102,7 +102,7 @@ namespace BandDrop.Controllers
             {
                 string receipient = bandEmails[i];
                 string subject = "Join BANDdrop group!";
-                string body = "Join group by entering : " + band.Name + " at band join page!";
+                string body = "Join group by entering : '" + band.Name + "' at band join page!";
                 APIUtility.SendSimpleMessage(receipient, subject, body);
             }
             

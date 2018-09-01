@@ -21,20 +21,12 @@
                     </div>
                  </div>
                 </li>`;
-            let newMessageTplContact =
-                `<li class="list-group-item " >
-                  <div id="msg-{{id}}" class="row __chat__par__ ">
-                    <div class="__chat__  " style="width: 18rem;">
-                     <h5 class="card-header text-info text-left">{{name}}</h5>
-                     <p class="text-primary pl-4 bg-light">{{body}}</p>
-                    </div>
-                 </div>
-                </li>`;
 
             const pusher = new Pusher('de9851a0744ee8227c97', {
                 authEndpoint: '@Url.Action("AuthForChannel", "Auth")',
                 cluster: 'us2'
             });
+
             pusher.connection.bind('connected', function () {
                 socketId = pusher.connection.socket_id;
             });
@@ -305,14 +297,16 @@
                 </div>
                 <div class="chat__type__body shadow rounded">
                     <div class="chat__type ">
+                        <div class="chat__typing fixed-bottom">
+                            <span id="typerDisplay"></span>
+                        </div>
                         <textarea id="msg_box" placeholder="Type your message"></textarea>
                         <button class="btn btn-primary" id="sendMessage">Send</button>
+
                     </div>
                 </div>
 
-                <div class="chat__typing">
-                    <span id="typerDisplay"></span>
-                </div>
+                
             </div>
             <div class="col-md-5 chatContent shadow bg-light flex-wrap" style="overflow-y: scroll; height: 60vh;">
                 <div class="audioTable">
